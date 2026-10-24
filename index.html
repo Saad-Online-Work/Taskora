@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taskora — Plan. Organize. Get Things Done.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      Taskora
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="#features">Features</a>
+      <div class="dropdown" id="pagesDropdown">
+        <button class="dropdown-toggle" type="button" aria-expanded="false">Pages
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="dropdown-menu" role="menu">
+          <a href="app.html">Dashboard</a>
+          <a href="app.html#tasks">Tasks</a>
+          <a href="app.html#projects">Projects</a>
+          <a href="app.html#calendar">Calendar</a>
+          <a href="app.html#settings">Settings</a>
+        </div>
+      </div>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <div class="mobile-actions">
+        <a href="signin.html" class="login">Login</a>
+        <a href="loading.html" class="btn btn-primary">Get Started</a>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a href="signin.html" class="login">Login</a>
+      <a href="loading.html" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy reveal">
+      <span class="pill"><span class="dot"></span> Better Tasks • More Progress</span>
+      <h1>Plan. Organize.<br><span class="text-blue">Get Things Done.</span></h1>
+      <p>Taskora is a simple and powerful project management tool that helps you stay focused, collaborate, and turn your ideas into real progress.</p>
+      <div class="hero-actions">
+        <a href="loading.html" class="btn btn-primary btn-lg">Get Started Free</a>
+        <a href="#features" class="btn btn-ghost btn-lg">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m10 8.5 5 3.5-5 3.5z" fill="currentColor" stroke="none"/></svg>
+          Explore Features
+        </a>
+      </div>
+      <ul class="hero-points">
+        <li><span class="tick-sm"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>No installation</li>
+        <li><span class="tick-sm"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Works offline</li>
+        <li><span class="tick-sm"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Your data stays on your device</li>
+      </ul>
+    </div>
+    <div class="hero-visual reveal">
+      <div class="device-laptop">
+        <div class="laptop-screen">
+          <div class="laptop-display">
+            <div class="mini" aria-hidden="true">
+              <aside class="mini-side">
+                <div class="mini-brand"><span class="mini-mark">✓</span> Taskora</div>
+                <div class="mini-nav"><span class="on">Dashboard</span><span>Tasks</span><span>Projects</span><span>Calendar</span><span>Settings</span></div>
+                <div class="mini-user"><span class="ava">MS</span><div><b>Muhammad Saad</b><small>Free plan</small></div></div>
+              </aside>
+              <div class="mini-main">
+                <div class="mini-top"><span class="mini-search">Search projects...</span><span class="mini-add">+ New Project</span></div>
+                <div class="mini-greet">Good morning, Muhammad Saad!<span>Here's what's happening with your work today.</span></div>
+                <div class="mini-stats">
+                  <div class="mini-stat"><span>Total Tasks</span><b>24</b></div>
+                  <div class="mini-stat"><span>In Progress</span><b>8</b></div>
+                  <div class="mini-stat"><span>Completed</span><b>13</b></div>
+                  <div class="mini-stat"><span>Overdue</span><b>3</b></div>
+                </div>
+                <div class="mini-bottom">
+                  <div class="mini-panel">
+                    <div class="mini-panel-head">Recent Tasks <span>View all</span></div>
+                    <div class="mini-task"><i class="dot blue"></i><div><b>Design landing page</b><small>Website Redesign</small></div><em class="tag high">High</em></div>
+                    <div class="mini-task"><i class="dot amber"></i><div><b>Review project brief</b><small>Mobile App</small></div><em class="tag med">Medium</em></div>
+                    <div class="mini-task"><i class="dot green"></i><div><b>Team sync meeting</b><small>Personal Goals</small></div><em class="tag low">Low</em></div>
+                  </div>
+                  <div class="mini-panel center">
+                    <div class="mini-panel-head">Progress</div>
+                    <div class="donut" style="--p:68"><span>68%</span></div>
+                    <div class="legend"><span><i style="background:#3b82f6"></i>Done</span><span><i style="background:#e2e8f0"></i>Left</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="laptop-base"></div>
+        <div class="device-phone" aria-hidden="true">
+          <div class="phone-screen">
+            <span class="phone-notch"></span>
+            <div class="phone-title">My Tasks</div>
+            <div class="phone-sub">Today · 4 tasks</div>
+            <div class="phone-item done"><span class="cb">✓</span> Design landing page</div>
+            <div class="phone-item"><span class="cb"></span> Review project brief</div>
+            <div class="phone-item"><span class="cb"></span> Team sync meeting</div>
+            <div class="phone-item"><span class="cb"></span> Update documentation</div>
+            <div class="phone-fab">+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Features</span>
+      <h2>Powerful Features</h2>
+      <p>Everything you need to plan, track, and manage your work in one place. Tap a card to mark it.</p>
+    </div>
+    <div class="features-grid" id="featuresGrid">
+      <article class="feature-card reveal" data-feature="task-management">
+        <div class="f-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="m9 13 2 2 4-4"/></svg></div>
+        <h3>Task Management</h3>
+        <p>Create, edit, and organize tasks with ease. Set priorities, deadlines, and track progress in real time.</p>
+      </article>
+      <article class="feature-card reveal" data-feature="projects" style="transition-delay:.06s">
+        <div class="f-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+        <h3>Projects &amp; Organization</h3>
+        <p>Group your tasks into projects, add labels and keep everything organized and easy to find.</p>
+      </article>
+      <article class="feature-card reveal" data-feature="dark-light" style="transition-delay:.12s">
+        <div class="f-icon indigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div>
+        <h3>Dark &amp; Light Mode</h3>
+        <p>Switch between themes or let the app follow your system preference.</p>
+      </article>
+      <article class="feature-card reveal" data-feature="calendar" style="transition-delay:.18s">
+        <div class="f-icon sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></div>
+        <h3>Calendar View</h3>
+        <p>See your deadlines and tasks in a beautiful calendar layout. Never miss an important date again.</p>
+      </article>
+      <article class="feature-card reveal" data-feature="search" style="transition-delay:.24s">
+        <div class="f-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
+        <h3>Search &amp; Filters</h3>
+        <p>Quickly find what you need with powerful search and filter options. Sort by priority, status, or due date.</p>
+      </article>
+      <article class="feature-card reveal" data-feature="responsive" style="transition-delay:.3s">
+        <div class="f-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="14" height="10" rx="2"/><path d="M6 18h6"/><rect x="16" y="9" width="6" height="11" rx="1.5"/></svg></div>
+        <h3>Responsive Design</h3>
+        <p>Works perfectly on all devices — mobile, tablet and desktop.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" id="about">
+  <div class="container split">
+    <div class="reveal">
+      <span class="eyebrow">Built for Everyone</span>
+      <h2>From Students to Professionals</h2>
+      <p class="quote">“Taskora has completely changed the way I manage my projects. The interface is clean, the flexibility amazing, and it just works!”</p>
+      <p class="quote-author">Sarah Johnson — Product Manager</p>
+      <ul class="check-list">
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Multiple projects</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Task priorities</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Drag &amp; drop (kanban view)</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Real-time progress tracking</li>
+      </ul>
+      <a href="loading.html" class="btn btn-primary">Get Started</a>
+    </div>
+    <div class="reveal">
+      <div class="device-laptop" style="max-width:520px;margin:0 auto">
+        <div class="laptop-screen">
+          <div class="laptop-display">
+            <div class="mini" aria-hidden="true">
+              <aside class="mini-side">
+                <div class="mini-brand"><span class="mini-mark">✓</span> Taskora</div>
+                <div class="mini-nav"><span class="on">Dashboard</span><span>Tasks</span><span>Projects</span><span>Calendar</span></div>
+              </aside>
+              <div class="mini-main">
+                <div class="mini-top"><span class="mini-search">Search tasks...</span><span class="mini-add">+ New Task</span></div>
+                <div class="mini-panel grow">
+                  <div class="mini-panel-head">Today's Tasks <span>View all</span></div>
+                  <div class="mini-task"><i class="dot blue"></i><div><b>Finish project proposal</b><small>Due today · Website Redesign</small></div><em class="tag high">High</em></div>
+                  <div class="mini-task"><i class="dot amber"></i><div><b>Prepare design review</b><small>Due today · Mobile App</small></div><em class="tag med">Medium</em></div>
+                  <div class="mini-task"><i class="dot green"></i><div><b>Write weekly summary</b><small>Due tomorrow · Content</small></div><em class="tag low">Low</em></div>
+                  <div class="mini-task"><i class="dot blue"></i><div><b>Update task board</b><small>Due tomorrow · Personal</small></div><em class="tag med">Medium</em></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="laptop-base"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>Simple, Transparent Pricing</h2>
+      <p>Choose the plan that fits your needs. Click any plan to continue to payment.</p>
+    </div>
+    <div class="pricing-grid">
+      <article class="price-card reveal" data-plan="free">
+        <h3>Free</h3><span class="badge-soft">For personal use</span>
+        <div class="price"><strong>$0</strong><span>/ forever</span></div>
+        <ul class="check-list small">
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Up to 5 projects</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Basic features</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Local storage</li>
+        </ul>
+        <a href="payment.html?plan=free" class="btn btn-ghost btn-block">Get Started</a>
+      </article>
+      <article class="price-card popular reveal" data-plan="pro" style="transition-delay:.06s">
+        <span class="popular-badge">Most Popular</span>
+        <h3>Pro</h3><span class="badge-soft">For growing teams</span>
+        <div class="price"><strong>$9</strong><span>/ month</span></div>
+        <ul class="check-list small">
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Unlimited projects</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Advanced features</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Priority support</li>
+        </ul>
+        <a href="payment.html?plan=pro" class="btn btn-primary btn-block">Get Started</a>
+      </article>
+      <article class="price-card reveal" data-plan="team" style="transition-delay:.12s">
+        <h3>Team</h3><span class="badge-soft">For larger teams</span>
+        <div class="price"><strong>$19</strong><span>/ month</span></div>
+        <ul class="check-list small">
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Team collaboration</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Admin controls</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Dedicated support</li>
+        </ul>
+        <a href="payment.html?plan=team" class="btn btn-ghost btn-block">Get Started</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Frequently Asked Questions</h2>
+      <p>Everything you need to know before getting started.</p>
+    </div>
+    <div class="faq-grid" id="faqGrid">
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Is Taskora free to use?<span class="plus"></span></button>
+        <div class="faq-a"><p>Yes. Taskora offers a free plan with core task and project features. Paid plans unlock additional capacity and advanced options.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Can I manage multiple projects?<span class="plus"></span></button>
+        <div class="faq-a"><p>Yes. Create as many projects as your plan allows, group related tasks, and track each project’s progress from actual task completion.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Can I set deadlines for tasks?<span class="plus"></span></button>
+        <div class="faq-a"><p>Yes. Add due dates to any task and see them in your task list and calendar.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Does Taskora save my data?<span class="plus"></span></button>
+        <div class="faq-a"><p>Taskora stores your data locally in your browser. Clearing browser data may remove locally stored tasks, so export important work if needed.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Can I access my data on another device?<span class="plus"></span></button>
+        <div class="faq-a"><p>Cross-device sync requires a cloud account. In the local-first version, data stays on the device where it was created.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Can I use Taskora on my phone?<span class="plus"></span></button>
+        <div class="faq-a"><p>Yes. The interface is fully responsive and designed for mobile, tablet, and desktop screens.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">Does Taskora support team collaboration?<span class="plus"></span></button>
+        <div class="faq-a"><p>Shared projects and real-time collaboration are part of the Team plan. Solo plans focus on personal task and project management.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button" aria-expanded="false">How is my project progress calculated?<span class="plus"></span></button>
+        <div class="faq-a"><p>Progress is calculated from the status of the tasks inside each project. Completing a task updates the project’s progress immediately.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card reveal">
+      <span class="eyebrow">Your Next Step Starts Here</span>
+      <h2>Your Next Big Project Starts Here</h2>
+      <p>Join Taskora today and take control of your work.</p>
+      <a href="loading.html" class="btn btn-primary btn-lg">Get Started Free</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-top">
+      <a href="index.html" class="brand">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        Taskora
+      </a>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="socials">
+        <a href="https://x.com" target="_blank" rel="noopener" class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.2 8.2L23.3 22h-6.6l-5.2-6.8L5.6 22H2.4l7.7-8.8L1.6 2h6.8l4.7 6.2L18.9 2zm-1.2 18h1.8L7.4 3.9H5.5L17.7 20z"/></svg></a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" class="social"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4v16h-4zM8 8h3.8v2.2h.1c.5-1 1.8-2.2 3.7-2.2 4 0 4.7 2.6 4.7 6V24h-4v-8.5c0-2-.04-4.6-2.8-4.6-2.8 0-3.2 2.2-3.2 4.5V24H8z"/></svg></a>
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="social"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://youtube.com" target="_blank" rel="noopener" class="social"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="m10.5 9.5 4.5 2.5-4.5 2.5z" fill="currentColor" stroke="none"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Taskora. All rights reserved.</span>
+      <span>Made with <span class="heart">♥</span> for a better tomorrow</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  /* Header scroll */
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive:true });
+
+  /* Mobile menu */
+  const mt = document.getElementById('mobileToggle');
+  const nav = document.getElementById('navLinks');
+  if (mt && nav){
+    mt.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      mt.setAttribute('aria-expanded', String(open));
+    });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('open'); mt.setAttribute('aria-expanded','false');
+    }));
+  }
+
+  /* Pages dropdown */
+  const dd = document.getElementById('pagesDropdown');
+  if (dd){
+    const btn = dd.querySelector('.dropdown-toggle');
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = dd.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', () => {
+      dd.classList.remove('open'); btn.setAttribute('aria-expanded','false');
+    });
+  }
+
+  /* Reveal */
+  const io = 'IntersectionObserver' in window
+    ? new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (en.isIntersecting){ en.target.classList.add('visible'); io.unobserve(en.target); }
+        });
+      }, { threshold:0.1, rootMargin:'0px 0px -50px 0px' })
+    : null;
+  document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('visible'));
+
+  /* ================= FEATURE CARDS: CLICK → SCALE + MARK ================= */
+  document.querySelectorAll('.feature-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const wasSelected = card.classList.contains('selected');
+      card.classList.toggle('selected');
+
+      // Smooth upscale bounce on every click
+      card.animate([
+        { transform: 'scale(1)' },
+        { transform: 'scale(1.06)' },
+        { transform: wasSelected ? 'scale(1)' : 'scale(1.03)' }
+      ], {
+        duration: 380,
+        easing: 'cubic-bezier(.2,.7,.2,1)',
+        fill: 'forwards'
+      });
+
+      // Small toast on selection
+      if (!wasSelected){
+        const title = card.querySelector('h3')?.textContent || 'Feature';
+        TK.toast('✓ Marked: ' + title, 'success');
+      }
+    });
+  });
+
+  /* ================= PRICING CARD: WHOLE CARD → PAYMENT ================= */
+  document.querySelectorAll('.price-card').forEach(card => {
+    card.addEventListener('click', e => {
+      // If clicked directly on the anchor, let default happen
+      if (e.target.closest('a')) return;
+      const plan = card.dataset.plan || 'free';
+      window.location.href = 'payment.html?plan=' + encodeURIComponent(plan);
+    });
+  });
+
+  /* ================= FAQ SMOOTH ACCORDION ================= */
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const panel = item.querySelector('.faq-a');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+      panel.style.maxHeight = isOpen ? panel.scrollHeight + 'px' : '0px';
+    });
+  });
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.faq-item.open .faq-a').forEach(p => {
+      p.style.maxHeight = p.scrollHeight + 'px';
+    });
+  });
+})();
+</script>
+</body>
+</html>

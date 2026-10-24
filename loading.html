@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taskora — Loading</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="loading-page">
+  <div class="loading-inner">
+    <div class="loader-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      <span class="loader-rings"></span>
+    </div>
+    <div class="loader-text">Taskora</div>
+    <div class="loader-sub" id="loaderSub">Preparing your workspace...</div>
+    <div class="loader-bar"><i></i></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  const messages = [
+    'Preparing your workspace...',
+    'Loading your projects...',
+    'Setting things up...',
+    'Almost ready...'
+  ];
+  const sub = document.getElementById('loaderSub');
+  let i = 0;
+  const interval = setInterval(() => {
+    i++;
+    if (i < messages.length){
+      sub.style.opacity = '0';
+      setTimeout(() => {
+        sub.textContent = messages[i];
+        sub.style.opacity = '1';
+      }, 150);
+    } else {
+      clearInterval(interval);
+    }
+  }, 520);
+
+  // After 2.6s of genuine page animation, redirect (real page-to-page loading)
+  setTimeout(() => {
+    clearInterval(interval);
+    const user = TK.getUser();
+    if (user){
+      // Already logged in → straight to app
+      window.location.replace('app.html');
+    } else {
+      // No account → signup
+      window.location.replace('signup.html');
+    }
+  }, 2600);
+})();
+</script>
+</body>
+</html>

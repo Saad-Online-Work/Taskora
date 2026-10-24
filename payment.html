@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — Taskora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="payment-page">
+  <div class="payment-header">
+    <a href="index.html#pricing" class="back">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back to plans
+    </a>
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      Taskora
+    </a>
+    <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+
+  <div class="payment-wrap">
+    <div class="pay-panel">
+      <h2>Payment details</h2>
+      <p>Choose how you want to pay. All transactions are encrypted.</p>
+
+      <div class="pay-methods" id="payMethods">
+        <button class="pay-method active" data-method="card" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+          Card
+        </button>
+        <button class="pay-method" data-method="paypal" type="button">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.1 21.5h3.4l.7-4.4h2.5c3.4 0 5.7-2 6.4-5.6.5-2.6-.8-4.2-3.6-4.2h-6.2L7.1 21.5zm5.6-8.7h-1.6l1.1-6.3h1.5c1.5 0 2 .7 1.7 2.2-.3 1.8-1.3 4.1-2.7 4.1z"/></svg>
+          PayPal
+        </button>
+        <button class="pay-method" data-method="apple" type="button">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.03-2.7 2.2-4 2.3-4.06-1.25-1.83-3.2-2.08-3.9-2.1-1.66-.17-3.24.98-4.08.98-.84 0-2.14-.96-3.52-.93-1.8.03-3.46 1.05-4.39 2.66-1.87 3.25-.48 8.06 1.34 10.7.89 1.29 1.95 2.74 3.34 2.69 1.34-.05 1.85-.87 3.47-.87s2.08.87 3.5.84c1.45-.03 2.36-1.32 3.24-2.62 1.02-1.5 1.44-2.96 1.46-3.03-.03-.01-2.8-1.08-2.83-4.26zM14.4 4.2c.74-.9 1.24-2.15 1.1-3.4-1.06.04-2.35.71-3.11 1.6-.68.8-1.28 2.07-1.12 3.29 1.19.09 2.4-.6 3.13-1.49z"/></svg>
+          Apple Pay
+        </button>
+        <button class="pay-method" data-method="google" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M22.5 12c0-.8-.1-1.5-.2-2.2H12v4.2h5.9c-.3 1.4-1 2.6-2.2 3.4v2.8h3.5c2.1-1.9 3.3-4.7 3.3-8.2z" fill="#4285F4"/><path d="M12 22.5c2.9 0 5.4-1 7.2-2.6l-3.5-2.8c-1 .7-2.2 1.1-3.7 1.1-2.8 0-5.2-1.9-6.1-4.5H2.3v2.8C4.1 20.1 7.8 22.5 12 22.5z" fill="#34A853"/><path d="M5.9 13.7c-.2-.6-.4-1.2-.4-1.9s.1-1.3.4-1.9V7.1H2.3C1.5 8.6 1.1 10.2 1.1 12s.4 3.4 1.2 4.9l3.6-3.2z" fill="#FBBC05"/><path d="M12 5.3c1.5 0 2.9.5 4 1.5l3-3C17.3 2 14.9 1 12 1 7.8 1 4.1 3.4 2.3 7.1l3.6 2.8C6.8 7.2 9.2 5.3 12 5.3z" fill="#EA4335"/></svg>
+          Google Pay
+        </button>
+      </div>
+
+      <form id="paymentForm" novalidate>
+        <div id="methodFields"></div>
+
+        <div class="pay-section-title">Contact</div>
+        <div class="form-group">
+          <label>Email Address <span class="req">*</span></label>
+          <input name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+          <div class="form-error" data-error="email">Please enter a valid email.</div>
+        </div>
+        <div class="form-group" id="nameGroup">
+          <label>Full Name <span class="req">*</span></label>
+          <input name="name" type="text" required placeholder="Muhammad Saad" autocomplete="name">
+          <div class="form-error" data-error="name">Please enter your name.</div>
+        </div>
+
+        <div class="pay-secure">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          Secured with 256-bit SSL encryption
+        </div>
+
+        <div class="form-actions" style="display:flex;gap:10px;margin-top:18px">
+          <button class="btn btn-primary btn-block btn-lg" type="submit" id="payBtn">Pay &amp; Continue</button>
+        </div>
+      </form>
+    </div>
+
+    <aside class="summary-panel">
+      <div class="pay-panel">
+        <h2>Order summary</h2>
+        <p>Review your plan before completing payment.</p>
+        <div class="summary-plan" id="summaryPlan"></div>
+        <div class="summary-total"><span>Total due today</span><strong id="summaryTotal">$0.00</strong></div>
+        <div class="summary-note">
+          After payment, we'll set up your account and take you to your workspace. You can cancel anytime from Settings.
+        </div>
+        <div class="pay-secure">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          30-day money-back guarantee
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  const PLANS = {
+    free: { name:'Free', price:0, period:'forever', badge:'For personal use' },
+    pro:  { name:'Pro',  price:9,  period:'month',   badge:'For growing teams' },
+    team: { name:'Team', price:19, period:'month',   badge:'For larger teams' }
+  };
+  const TAX_RATE = 0; // Set to e.g. 0.17 for tax
+
+  const params = new URLSearchParams(location.search);
+  const planKey = (params.get('plan') || 'free').toLowerCase();
+  const plan = PLANS[planKey] || PLANS.free;
+
+  /* Populate summary */
+  const summaryPlan = document.getElementById('summaryPlan');
+  const summaryTotal = document.getElementById('summaryTotal');
+  const tax = plan.price * TAX_RATE;
+  const total = plan.price + tax;
+
+  summaryPlan.innerHTML = `
+    <div class="row"><strong>${plan.name} Plan</strong><strong>$${plan.price.toFixed(2)}/${plan.period}</strong></div>
+    <div class="row muted">${plan.badge}</div>
+    ${tax > 0 ? `<div class="row muted"><span>Tax</span><span>$${tax.toFixed(2)}</span></div>` : ''}
+  `;
+  summaryTotal.textContent = '$' + total.toFixed(2);
+
+  /* Prefill email if user exists */
+  const existingUser = TK.getUser();
+  if (existingUser){
+    const emailInput = document.querySelector('[name="email"]');
+    const nameInput = document.querySelector('[name="name"]');
+    if (emailInput) emailInput.value = existingUser.email;
+    if (nameInput) nameInput.value = existingUser.name;
+  }
+
+  /* Payment method fields */
+  const methodsWrap = document.getElementById('payMethods');
+  const fieldsWrap = document.getElementById('methodFields');
+  const nameGroup = document.getElementById('nameGroup');
+  let activeMethod = 'card';
+
+  const fieldsByMethod = {
+    card: `
+      <div class="pay-section-title">Card Information</div>
+      <div class="form-group">
+        <label>Card Number <span class="req">*</span></label>
+        <input name="cardNumber" inputmode="numeric" maxlength="19" placeholder="1234 5678 9012 3456" autocomplete="cc-number">
+        <div class="form-error" data-error="cardNumber">Please enter a valid card number.</div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Expiry <span class="req">*</span></label>
+          <input name="cardExpiry" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+          <div class="form-error" data-error="cardExpiry">Please enter expiry (MM/YY).</div>
+        </div>
+        <div class="form-group">
+          <label>CVV <span class="req">*</span></label>
+          <input name="cardCvv" inputmode="numeric" maxlength="4" placeholder="123" autocomplete="cc-csc">
+          <div class="form-error" data-error="cardCvv">Please enter CVV.</div>
+        </div>
+      </div>`,
+    paypal: `
+      <div class="pay-section-title">PayPal</div>
+      <p style="font-size:13.5px;color:var(--slate-500);margin-bottom:12px">
+        You will be redirected to PayPal to complete your purchase securely.
+      </p>`,
+    apple: `
+      <div class="pay-section-title">Apple Pay</div>
+      <p style="font-size:13.5px;color:var(--slate-500);margin-bottom:12px">
+        Confirm with Touch ID or Face ID on your device.
+      </p>`,
+    google: `
+      <div class="pay-section-title">Google Pay</div>
+      <p style="font-size:13.5px;color:var(--slate-500);margin-bottom:12px">
+        Confirm with your Google account.
+      </p>`
+  };
+
+  function setMethod(method){
+    activeMethod = method;
+    methodsWrap.querySelectorAll('.pay-method').forEach(b => {
+      b.classList.toggle('active', b.dataset.method === method);
+    });
+    fieldsWrap.innerHTML = fieldsByMethod[method] || '';
+    // Name group visible only for non-card (card has name separate)
+    nameGroup.style.display = method === 'paypal' || method === 'apple' || method === 'google' ? '' : '';
+    // Add card number formatting
+    const cardInput = document.querySelector('[name="cardNumber"]');
+    if (cardInput){
+      cardInput.addEventListener('input', e => {
+        let v = e.target.value.replace(/\D/g,'').slice(0,16);
+        e.target.value = v.replace(/(\d{4})(?=\d)/g, '$1 ');
+      });
+    }
+    const expInput = document.querySelector('[name="cardExpiry"]');
+    if (expInput){
+      expInput.addEventListener('input', e => {
+        let v = e.target.value.replace(/\D/g,'').slice(0,4);
+        if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
+        e.target.value = v;
+      });
+    }
+  }
+
+  methodsWrap.addEventListener('click', e => {
+    const btn = e.target.closest('.pay-method');
+    if (btn) setMethod(btn.dataset.method);
+  });
+  setMethod('card');
+
+  /* Submit */
+  const form = document.getElementById('paymentForm');
+  const payBtn = document.getElementById('payBtn');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const email = (fd.get('email') || '').trim();
+    const name = (fd.get('name') || '').trim();
+
+    // clear errors
+    form.querySelectorAll('.form-error').forEach(el => el.classList.remove('show'));
+    let ok = true;
+
+    const emailErr = form.querySelector('[data-error="email"]');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ emailErr.classList.add('show'); ok = false; }
+
+    if (!name){
+      const nameErr = form.querySelector('[data-error="name"]');
+      if (nameErr){ nameErr.classList.add('show'); ok = false; }
+    }
+
+    if (activeMethod === 'card'){
+      const num = (fd.get('cardNumber') || '').replace(/\s/g,'');
+      const exp = fd.get('cardExpiry') || '';
+      const cvv = fd.get('cardCvv') || '';
+      if (!/^\d{13,19}$/.test(num)){ form.querySelector('[data-error="cardNumber"]').classList.add('show'); ok = false; }
+      if (!/^\d{2}\/\d{2}$/.test(exp)){ form.querySelector('[data-error="cardExpiry"]').classList.add('show'); ok = false; }
+      if (!/^\d{3,4}$/.test(cvv)){ form.querySelector('[data-error="cardCvv"]').classList.add('show'); ok = false; }
+    }
+
+    if (!ok) return;
+
+    payBtn.classList.add('loading'); payBtn.disabled = true;
+
+    // Simulate processing → then create/update account & redirect
+    setTimeout(() => {
+      let user = TK.getUser();
+      if (!user){
+        user = {
+          name, email,
+          passwordHash: '',
+          createdAt: new Date().toISOString(),
+          fromPayment: true
+        };
+        TK.setUser(user);
+      } else {
+        // Update email/name if changed
+        if (!user.name) user.name = name;
+        if (!user.email) user.email = email;
+        TK.setUser(user);
+      }
+      TK.setPlan(planKey);
+      TK.toast('Payment successful — welcome to ' + plan.name + '!', 'success');
+      window.location.replace('app.html');
+    }, 1400);
+  });
+})();
+</script>
+</body>
+</html>

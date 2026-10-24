@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taskora — Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ---- App-specific ---- */
+.app-shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh;background:var(--bg-soft)}
+.app-sidebar{background:var(--card);border-right:1px solid var(--line);
+  padding:20px 14px;display:flex;flex-direction:column;gap:18px;
+  position:sticky;top:0;height:100vh;overflow-y:auto;z-index:40}
+.app-brand{display:flex;align-items:center;gap:9px;font-weight:800;
+  font-size:18px;letter-spacing:-.02em;padding:4px 8px 14px;
+  border-bottom:1px solid var(--line)}
+.app-nav{display:flex;flex-direction:column;gap:2px}
+.app-nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;
+  border-radius:9px;font-size:14px;font-weight:500;color:var(--slate-600);
+  transition:background-color .2s,color .2s}
+.app-nav a:hover{background:var(--blue-50);color:var(--ink)}
+.app-nav a.active{background:var(--blue-600);color:#fff;font-weight:600}
+.app-nav a svg{width:17px;height:17px;flex:none}
+.app-sidebar-footer{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:8px}
+.app-sidebar-footer a{display:flex;align-items:center;gap:8px;padding:9px 12px;
+  border-radius:9px;font-size:13px;color:var(--slate-500);transition:background-color .2s,color .2s}
+.app-sidebar-footer a:hover{background:var(--blue-50);color:var(--blue-600)}
+.app-main{min-width:0;display:flex;flex-direction:column}
+.app-topbar{display:flex;align-items:center;gap:14px;padding:14px 24px;
+  background:var(--card);border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:30;min-width:0}
+.app-topbar h1{font-size:19px;font-weight:700;letter-spacing:-.01em;flex:1;
+  min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app-menu-toggle{display:none;width:38px;height:38px;border-radius:9px;
+  border:1px solid var(--line);background:var(--card);place-items:center;color:var(--ink)}
+.app-topbar-actions{display:flex;align-items:center;gap:8px;flex:none}
+.app-view{padding:24px;min-width:0;flex:1}
+
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:20px;box-shadow:var(--shadow-sm);min-width:0}
+.panel-head{display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-bottom:14px;min-width:0}
+.panel-head h2{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.panel-head .link{font-size:12.5px;font-weight:600;color:var(--blue-600)}
+
+.dash-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.dash-summary>*{min-width:0}
+.summary-card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+  padding:16px 18px;box-shadow:var(--shadow-sm);min-width:0}
+.summary-card span{display:block;font-size:12px;font-weight:600;color:var(--slate-500);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.summary-card strong{display:block;font-size:28px;font-weight:800;
+  letter-spacing:-.02em;line-height:1.1}
+.summary-card.overdue strong{color:var(--danger)}
+.summary-card.done strong{color:var(--success)}
+.summary-card.prog strong{color:var(--blue-600)}
+
+.dash-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+.dash-grid>*{min-width:0}
+.dash-grid .panel:nth-child(3){grid-column:1 / -1}
+
+.task-row{display:flex;align-items:center;gap:10px;padding:10px 0;
+  border-bottom:1px dashed var(--line);min-width:0}
+.task-row:last-child{border-bottom:none}
+.task-check{width:19px;height:19px;border-radius:50%;border:1.5px solid var(--slate-400);
+  background:transparent;flex:none;display:grid;place-items:center;
+  cursor:pointer;transition:background-color .2s,border-color .2s;color:#fff}
+.task-check svg{width:11px;height:11px;opacity:0;transition:opacity .2s}
+.task-check:hover{border-color:var(--blue-500)}
+.task-row.completed .task-check{background:var(--blue-600);border-color:var(--blue-600)}
+.task-row.completed .task-check svg{opacity:1}
+.task-body{flex:1;min-width:0}
+.task-body h4{font-size:14px;font-weight:600;letter-spacing:-.01em;line-height:1.3;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.task-row.completed .task-body h4{color:var(--slate-400);text-decoration:line-through}
+.task-body p{font-size:12.5px;color:var(--slate-500);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.task-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chip{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:600;
+  padding:2px 8px;border-radius:99px;white-space:nowrap}
+.chip.priority-low{background:#dcfce7;color:#15803d}
+.chip.priority-medium{background:#fef3c7;color:#a16207}
+.chip.priority-high{background:#fee2e2;color:#b91c1c}
+.chip.priority-urgent{background:#4c0519;color:#fecaca}
+.chip.status-todo{background:#e2e8f0;color:#475569}
+.chip.status-in-progress{background:#dbeafe;color:#1d4ed8}
+.chip.status-completed{background:#dcfce7;color:#15803d}
+.chip.due{background:var(--bg-soft);color:var(--slate-500);border:1px solid var(--line)}
+.chip.due.overdue{background:var(--danger-bg);color:var(--danger);border-color:transparent}
+.chip.proj{background:var(--blue-50);color:var(--blue-600)}
+[data-theme="dark"] .chip.priority-low{background:rgba(34,197,94,.16);color:#86efac}
+[data-theme="dark"] .chip.priority-medium{background:rgba(245,158,11,.16);color:#fcd34d}
+[data-theme="dark"] .chip.priority-high{background:rgba(239,68,68,.16);color:#fca5a5}
+[data-theme="dark"] .chip.priority-urgent{background:rgba(244,63,94,.2);color:#fda4af}
+[data-theme="dark"] .chip.status-todo{background:rgba(100,116,139,.2);color:#cbd5e1}
+[data-theme="dark"] .chip.status-in-progress{background:rgba(59,130,246,.18);color:#93c5fd}
+[data-theme="dark"] .chip.status-completed{background:rgba(34,197,94,.16);color:#86efac}
+[data-theme="dark"] .chip.due{background:var(--bg);color:var(--slate-500)}
+[data-theme="dark"] .chip.proj{background:var(--blue-50);color:#93c5fd}
+.task-actions{display:flex;gap:4px;flex:none}
+.icon-action{width:28px;height:28px;border-radius:7px;display:grid;place-items:center;
+  color:var(--slate-400);transition:background-color .2s,color .2s}
+.icon-action:hover{background:var(--blue-50);color:var(--blue-600)}
+.icon-action.danger:hover{background:var(--danger-bg);color:var(--danger)}
+.icon-action svg{width:14px;height:14px}
+
+.empty-state{padding:36px 20px;text-align:center;border:1.5px dashed var(--line);
+  border-radius:12px;background:var(--bg-soft)}
+.empty-state h3{font-size:15px;font-weight:600;margin-bottom:6px}
+.empty-state p{font-size:13px;color:var(--slate-500);margin-bottom:16px;
+  max-width:320px;margin-inline:auto}
+.empty-state .btn{margin-top:4px}
+
+.project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.project-grid>*{min-width:0}
+.project-card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:20px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:10px;
+  position:relative;transition:transform .3s,box-shadow .3s,border-color .3s}
+.project-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:#cfe0fb}
+.project-card .proj-title{font-size:15.5px;font-weight:700;display:flex;
+  align-items:center;gap:8px;min-width:0}
+.project-card .proj-title span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.project-card .proj-desc{font-size:13px;color:var(--slate-500);min-height:2.6em}
+.proj-color{width:11px;height:11px;border-radius:3px;flex:none}
+.proj-bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.proj-bar i{display:block;height:100%;background:var(--blue-500);border-radius:99px;
+  transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.proj-actions{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.proj-actions .btn{flex:1;min-width:0;padding:7px 10px;font-size:12px}
+
+.toolbar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;align-items:center}
+.toolbar .search{flex:1;min-width:200px;position:relative}
+.toolbar .search input{width:100%;padding:10px 14px 10px 36px;border-radius:10px;
+  border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:14px}
+.toolbar .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  width:15px;height:15px;color:var(--slate-400);pointer-events:none}
+.toolbar select{padding:10px 12px;border-radius:10px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink);font:inherit;font-size:13px;cursor:pointer}
+
+.kanban-board{display:grid;grid-template-columns:repeat(3,minmax(240px,1fr));gap:16px}
+.kanban-board>*{min-width:0}
+.kanban-col{background:var(--bg-soft);border:1px solid var(--line);border-radius:14px;
+  padding:14px;display:flex;flex-direction:column;gap:10px;min-height:200px;
+  transition:background-color .2s,border-color .2s}
+.kanban-col.drag-over{background:var(--blue-50);border-color:var(--blue-500)}
+.kanban-col-head{display:flex;align-items:center;justify-content:space-between;
+  gap:8px;padding:0 4px 6px;min-width:0}
+.kanban-col-head h3{font-size:13px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--slate-500);display:flex;align-items:center;gap:7px}
+.kanban-col-head .count{font-size:11.5px;font-weight:600;background:var(--card);
+  color:var(--slate-500);padding:1px 8px;border-radius:99px;border:1px solid var(--line)}
+.kanban-cards{display:flex;flex-direction:column;gap:10px;flex:1;min-height:60px}
+.kanban-card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+  padding:12px;cursor:grab;display:flex;flex-direction:column;gap:7px;
+  box-shadow:var(--shadow-sm);transition:transform .2s,box-shadow .2s,border-color .2s;min-width:0}
+.kanban-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:#cfe0fb}
+.kanban-card:active{cursor:grabbing}
+.kanban-card.dragging{opacity:.45;transform:rotate(1.5deg) scale(.98)}
+.kanban-card h4{font-size:13.5px;font-weight:600;line-height:1.3;word-wrap:break-word}
+.kanban-card .k-meta{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.kanban-card .k-actions{display:flex;gap:2px;justify-content:flex-end;margin-top:2px}
+
+.cal-header{display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.cal-header h2{font-size:18px;font-weight:700;flex:1;min-width:0;text-align:center}
+.cal-header .cal-nav{display:flex;gap:6px;flex:none}
+.cal-header .btn{padding:7px 12px;font-size:13px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;
+  box-shadow:var(--shadow-sm)}
+.cal-dow{text-align:center;font-size:11px;font-weight:700;color:var(--slate-500);
+  text-transform:uppercase;letter-spacing:.06em;padding:6px 0}
+.cal-day{aspect-ratio:1;border-radius:8px;border:1px solid transparent;
+  background:transparent;display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-start;padding:5px 2px;font-size:12.5px;font-weight:500;
+  color:var(--ink);cursor:pointer;position:relative;
+  transition:background-color .15s,border-color .15s;min-width:0}
+.cal-day:hover{background:var(--blue-50)}
+.cal-day.other{color:var(--slate-400);opacity:.55}
+.cal-day.today{background:var(--blue-50);color:var(--blue-600);font-weight:700}
+.cal-day.selected{background:var(--blue-600);color:#fff;font-weight:700}
+.cal-day.has-tasks::after{content:"";position:absolute;bottom:5px;left:50%;
+  transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:var(--blue-500)}
+.cal-day.selected.has-tasks::after{background:#fff}
+.cal-tasks{margin-top:18px}
+.cal-tasks h3{font-size:15px;font-weight:700;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cal-tasks h3 small{font-size:12px;font-weight:500;color:var(--slate-500)}
+
+.settings-section{margin-bottom:24px}
+.settings-section h3{font-size:15px;font-weight:700;margin-bottom:10px;
+  padding-bottom:8px;border-bottom:1px solid var(--line)}
+.settings-row{display:flex;align-items:center;justify-content:space-between;
+  gap:16px;padding:12px 0;flex-wrap:wrap}
+.settings-row>div:first-child{flex:1;min-width:180px}
+.settings-row h4{font-size:14px;font-weight:600;margin-bottom:3px}
+.settings-row p{font-size:12.5px;color:var(--slate-500)}
+.theme-options{display:flex;gap:8px;flex-wrap:wrap}
+.theme-opt{display:flex;align-items:center;gap:6px;padding:8px 14px;
+  border-radius:9px;border:1px solid var(--line);background:var(--card);
+  font-size:13px;font-weight:500;cursor:pointer;transition:border-color .2s,background-color .2s}
+.theme-opt:hover{border-color:#bfd6fb}
+.theme-opt.active{border-color:var(--blue-500);background:var(--blue-50);color:var(--blue-600);font-weight:600}
+.theme-opt svg{width:15px;height:15px}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(2,6,23,.55);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  display:grid;place-items:center;z-index:200;padding:16px;animation:fadeIn .18s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  width:100%;max-width:520px;padding:26px;box-shadow:var(--shadow-lg);
+  max-height:90vh;overflow-y:auto;animation:popIn .22s cubic-bezier(.2,.7,.2,1)}
+@keyframes popIn{from{transform:scale(.94) translateY(8px);opacity:0}to{transform:none;opacity:1}}
+.modal h3{font-size:18px;font-weight:700;margin-bottom:6px}
+.modal>p{font-size:13.5px;color:var(--slate-500);margin-bottom:18px}
+.modal .form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+
+.sidebar-backdrop{position:fixed;inset:0;background:rgba(2,6,23,.4);
+  z-index:35;opacity:0;pointer-events:none;transition:opacity .25s}
+.sidebar-backdrop.show{opacity:1;pointer-events:auto}
+
+@media (max-width:1100px){
+  .dash-grid{grid-template-columns:1fr}
+  .dash-grid .panel:nth-child(3){grid-column:auto}
+}
+@media (max-width:980px){
+  .app-shell{grid-template-columns:1fr}
+  .app-sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;
+    transform:translateX(-100%);transition:transform .25s cubic-bezier(.2,.7,.2,1);
+    z-index:40;box-shadow:var(--shadow-lg);height:100vh}
+  .app-sidebar.open{transform:none}
+  .app-menu-toggle{display:grid}
+  .app-topbar{padding:12px 16px}
+  .app-view{padding:16px}
+  .dash-summary{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:700px){
+  .kanban-board{grid-template-columns:repeat(3,minmax(220px,1fr));
+    overflow-x:auto;padding-bottom:8px}
+  .modal .form-row{grid-template-columns:1fr}
+  .cal-day{font-size:11px}
+  .cal-dow{font-size:9.5px}
+}
+@media (max-width:560px){
+  .dash-summary{grid-template-columns:1fr 1fr}
+  .summary-card strong{font-size:24px}
+  .toolbar .search{min-width:100%}
+}
+</style>
+</head>
+<body>
+
+<div id="appRoot" class="app-shell" hidden>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <aside class="app-sidebar" id="appSidebar">
+    <a href="app.html" class="app-brand">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      Taskora
+    </a>
+    <nav class="app-nav" id="appNav">
+      <a href="#dashboard" data-view="dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+        Dashboard
+      </a>
+      <a href="#tasks" data-view="tasks">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="m9 13 2 2 4-4"/></svg>
+        Tasks
+      </a>
+      <a href="#projects" data-view="projects">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Projects
+      </a>
+      <a href="#board" data-view="board">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="6" height="16" rx="1.5"/><rect x="10" y="4" width="6" height="10" rx="1.5"/><rect x="17" y="4" width="4" height="13" rx="1.5"/></svg>
+        Board
+      </a>
+      <a href="#calendar" data-view="calendar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>
+        Calendar
+      </a>
+      <a href="#settings" data-view="settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1 1.55V21a2 2 0 1 1-4 0v-.09a1.7 1.7 0 0 0-1.11-1.55 1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.55-1H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34H9a1.7 1.7 0 0 0 1-1.55V3a2 2 0 1 1 4 0v.09a1.7 1.7 0 0 0 1 1.55 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87V9a1.7 1.7 0 0 0 1.55 1H21a2 2 0 1 1 0 4h-.09a1.7 1.7 0 0 0-1.51 1z"/></svg>
+        Settings
+      </a>
+    </nav>
+    <div class="app-sidebar-footer">
+      <a href="index.html">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to website
+      </a>
+      <a href="#settings">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Data &amp; privacy
+      </a>
+    </div>
+  </aside>
+
+  <main class="app-main">
+    <header class="app-topbar">
+      <button class="app-menu-toggle" id="appMenuToggle" type="button" aria-label="Open menu" aria-expanded="false">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <h1 id="appTitle">Dashboard</h1>
+      <div class="app-topbar-actions">
+        <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <button class="btn btn-primary btn-sm" data-action="new-task" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          New Task
+        </button>
+      </div>
+    </header>
+    <div class="app-view" id="appView"></div>
+  </main>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" hidden aria-hidden="true">
+  <div class="modal" id="modalContent" role="dialog" aria-modal="true"></div>
+</div>
+
+<script src="app.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  /* ================= GUARD: account required ================= */
+  if (!TK.getUser()){
+    window.location.replace('signup.html');
+    return;
+  }
+
+  const state = {
+    tasks: TK.getTasks(),
+    projects: TK.getProjects(),
+    view: 'dashboard',
+    search: '',
+    fStatus: 'all',
+    fPriority: 'all',
+    fProject: 'all',
+    sort: 'due-asc',
+    calDate: new Date(),
+    calSelected: null
+  };
+
+  const STATUS_LABELS = { 'todo':'To Do', 'in-progress':'In Progress', 'completed':'Completed' };
+  const PRIORITY_LABELS = { 'low':'Low', 'medium':'Medium', 'high':'High', 'urgent':'Urgent' };
+  const VIEW_TITLES = {
+    dashboard:'Dashboard', tasks:'My Tasks', projects:'My Projects',
+    board:'Task Board', calendar:'Calendar', settings:'Settings'
+  };
+
+  function saveTasks(){ TK.setTasks(state.tasks); }
+  function saveProjects(){ TK.setProjects(state.projects); }
+
+  function projectName(id){
+    if (!id) return '';
+    const p = state.projects.find(x => x.id === id);
+    return p ? p.name : '';
+  }
+  function projectColor(id){
+    if (!id) return '#94a3b8';
+    const p = state.projects.find(x => x.id === id);
+    return p ? p.color : '#94a3b8';
+  }
+  function projectStats(id){
+    const tasks = state.tasks.filter(t => t.projectId === id);
+    const total = tasks.length;
+    const completed = tasks.filter(t => t.status === 'completed').length;
+    const remaining = total - completed;
+    const percent = total === 0 ? null : Math.round((completed / total) * 100);
+    return { total, completed, remaining, percent };
+  }
+  function dashboardStats(){
+    const total = state.tasks.length;
+    const inProgress = state.tasks.filter(t => t.status === 'in-progress').length;
+    const completed = state.tasks.filter(t => t.status === 'completed').length;
+    const overdue = state.tasks.filter(t => TK.isOverdue(t)).length;
+    return { total, inProgress, completed, overdue };
+  }
+
+  /* ============ MODAL ============ */
+  const overlay = document.getElementById('modalOverlay');
+  const modalContent = document.getElementById('modalContent');
+  function openModal(html, onMount){
+    modalContent.innerHTML = html;
+    overlay.hidden = false;
+    overlay.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    if (onMount) onMount(modalContent);
+    const first = modalContent.querySelector('input,select,textarea,button');
+    if (first) setTimeout(() => first.focus(), 30);
+  }
+  function closeModal(){
+    overlay.hidden = true;
+    overlay.setAttribute('aria-hidden','true');
+    modalContent.innerHTML = '';
+    document.body.style.overflow = '';
+  }
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !overlay.hidden) closeModal(); });
+  modalContent.addEventListener('click', e => {
+    if (e.target.closest('[data-action="close-modal"]')) closeModal();
+  });
+  function confirmDialog(title, message, label, onConfirm){
+    openModal(`
+      <h3>${TK.escapeHtml(title)}</h3>
+      <p>${TK.escapeHtml(message)}</p>
+      <div class="form-actions">
+        <button class="btn btn-ghost" data-action="close-modal" type="button">Cancel</button>
+        <button class="btn btn-danger" id="confirmBtn" type="button">${TK.escapeHtml(label)}</button>
+      </div>`, m => {
+      m.querySelector('#confirmBtn').addEventListener('click', () => { closeModal(); onConfirm(); });
+    });
+  }
+
+  /* ============ TASK MODAL ============ */
+  function openTaskModal(taskId, presetDate){
+    const editing = taskId ? state.tasks.find(t => t.id === taskId) : null;
+    const task = editing || { title:'', description:'', status:'todo', priority:'medium', dueDate: presetDate || '', projectId:'' };
+    const projectOpts = state.projects.map(p =>
+      `<option value="${p.id}" ${task.projectId === p.id ? 'selected' : ''}>${TK.escapeHtml(p.name)}</option>`
+    ).join('');
+    openModal(`
+      <h3>${editing ? 'Edit Task' : 'New Task'}</h3>
+      <p>${editing ? 'Update the task details below.' : 'Add a new task to your workspace.'}</p>
+      <form id="taskForm" novalidate>
+        <div class="form-group">
+          <label>Title <span class="req">*</span></label>
+          <input name="title" type="text" maxlength="120" required value="${TK.escapeHtml(task.title)}" placeholder="e.g. Design landing page">
+          <div class="form-error" data-error="title">Please enter a task title.</div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" maxlength="500" placeholder="Optional details...">${TK.escapeHtml(task.description)}</textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Priority</label>
+            <select name="priority">${Object.keys(PRIORITY_LABELS).map(k =>
+              `<option value="${k}" ${task.priority === k ? 'selected' : ''}>${PRIORITY_LABELS[k]}</option>`
+            ).join('')}</select>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select name="status">${Object.keys(STATUS_LABELS).map(k =>
+              `<option value="${k}" ${task.status === k ? 'selected' : ''}>${STATUS_LABELS[k]}</option>`
+            ).join('')}</select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Due Date</label>
+            <input name="dueDate" type="date" value="${task.dueDate || ''}">
+          </div>
+          <div class="form-group">
+            <label>Project</label>
+            <select name="projectId"><option value="">None</option>${projectOpts}</select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-ghost" data-action="close-modal" type="button">Cancel</button>
+          <button class="btn btn-primary" type="submit">${editing ? 'Save Changes' : 'Save Task'}</button>
+        </div>
+      </form>`, m => {
+      const form = m.querySelector('#taskForm');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const title = (fd.get('title') || '').trim();
+        const titleErr = form.querySelector('[data-error="title"]');
+        if (!title){ titleErr.classList.add('show'); form.querySelector('[name="title"]').focus(); return; }
+        titleErr.classList.remove('show');
+        const payload = {
+          title,
+          description: (fd.get('description') || '').trim(),
+          priority: fd.get('priority'),
+          status: fd.get('status'),
+          dueDate: fd.get('dueDate') || null,
+          projectId: fd.get('projectId') || null
+        };
+        if (editing){
+          Object.assign(editing, payload, { updatedAt: new Date().toISOString() });
+          TK.toast('Task updated', 'success');
+        } else {
+          state.tasks.unshift({
+            id: TK.uid(), ...payload,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          });
+          TK.toast('Task created', 'success');
+        }
+        saveTasks(); closeModal(); renderApp();
+      });
+    });
+  }
+
+  /* ============ PROJECT MODAL ============ */
+  const PROJECT_COLORS = ['#2563eb','#7c3aed','#0891b2','#16a34a','#d97706','#dc2626','#db2777','#0d9488'];
+  function openProjectModal(projectId){
+    const editing = projectId ? state.projects.find(p => p.id === projectId) : null;
+    const proj = editing || { name:'', description:'', color:'#2563eb', dueDate:'' };
+    openModal(`
+      <h3>${editing ? 'Edit Project' : 'New Project'}</h3>
+      <p>${editing ? 'Update your project details.' : 'Create a project to group related tasks.'}</p>
+      <form id="projectForm" novalidate>
+        <div class="form-group">
+          <label>Project Name <span class="req">*</span></label>
+          <input name="name" type="text" maxlength="80" required value="${TK.escapeHtml(proj.name)}" placeholder="e.g. Website Redesign">
+          <div class="form-error" data-error="name">Please enter a project name.</div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" maxlength="300" placeholder="What is this project about?">${TK.escapeHtml(proj.description)}</textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Color</label>
+            <select name="color">${PROJECT_COLORS.map(c =>
+              `<option value="${c}" ${proj.color === c ? 'selected' : ''}>${c}</option>`
+            ).join('')}</select>
+          </div>
+          <div class="form-group">
+            <label>Due Date (optional)</label>
+            <input name="dueDate" type="date" value="${proj.dueDate || ''}">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-ghost" data-action="close-modal" type="button">Cancel</button>
+          <button class="btn btn-primary" type="submit">${editing ? 'Save Changes' : 'Create Project'}</button>
+        </div>
+      </form>`, m => {
+      const form = m.querySelector('#projectForm');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const name = (fd.get('name') || '').trim();
+        const nameErr = form.querySelector('[data-error="name"]');
+        if (!name){ nameErr.classList.add('show'); form.querySelector('[name="name"]').focus(); return; }
+        nameErr.classList.remove('show');
+        const payload = {
+          name,
+          description: (fd.get('description') || '').trim(),
+          color: fd.get('color'),
+          dueDate: fd.get('dueDate') || null
+        };
+        if (editing){ Object.assign(editing, payload); TK.toast('Project updated', 'success'); }
+        else {
+          state.projects.unshift({ id: TK.uid(), ...payload, createdAt: new Date().toISOString() });
+          TK.toast('Project created', 'success');
+        }
+        saveProjects(); closeModal(); renderApp();
+      });
+    });
+  }
+
+  /* ============ TASK ROW ============ */
+  function taskRowHtml(t, compact){
+    const overdue = TK.isOverdue(t);
+    return `
+      <div class="task-row ${t.status === 'completed' ? 'completed' : ''}" data-id="${t.id}">
+        <button class="task-check" data-action="toggle-task" data-id="${t.id}" type="button" aria-label="Toggle complete">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </button>
+        <div class="task-body">
+          <h4>${TK.escapeHtml(t.title)}</h4>
+          ${t.description && !compact ? `<p>${TK.escapeHtml(t.description)}</p>` : ''}
+          <div class="task-meta">
+            <span class="chip priority-${t.priority}">${PRIORITY_LABELS[t.priority]}</span>
+            <span class="chip status-${t.status}">${STATUS_LABELS[t.status]}</span>
+            ${t.dueDate ? `<span class="chip due ${overdue ? 'overdue' : ''}">${overdue ? '⚠ ' : ''}${TK.fmtDateShort(t.dueDate)}</span>` : ''}
+            ${t.projectId ? `<span class="chip proj">${TK.escapeHtml(projectName(t.projectId))}</span>` : ''}
+          </div>
+        </div>
+        <div class="task-actions">
+          <button class="icon-action" data-action="edit-task" data-id="${t.id}" type="button" aria-label="Edit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+          </button>
+          <button class="icon-action danger" data-action="delete-task" data-id="${t.id}" type="button" aria-label="Delete">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+          </button>
+        </div>
+      </div>`;
+  }
+
+  /* ============ VIEWS ============ */
+  function renderDashboard(){
+    const s = dashboardStats();
+    const recent = state.tasks.slice().sort((a,b) => (b.createdAt||'').localeCompare(a.createdAt||'')).slice(0,5);
+    const upcoming = state.tasks.filter(t => t.status !== 'completed' && t.dueDate &&
+      TK.startOfDay(t.dueDate + 'T00:00:00') >= TK.startOfDay(new Date()))
+      .sort((a,b) => a.dueDate.localeCompare(b.dueDate)).slice(0,5);
+    return `
+      <div class="dash-summary">
+        <div class="summary-card"><span>Total Tasks</span><strong>${s.total}</strong></div>
+        <div class="summary-card prog"><span>In Progress</span><strong>${s.inProgress}</strong></div>
+        <div class="summary-card done"><span>Completed</span><strong>${s.completed}</strong></div>
+        <div class="summary-card overdue"><span>Overdue</span><strong>${s.overdue}</strong></div>
+      </div>
+      <div class="dash-grid">
+        <section class="panel">
+          <div class="panel-head"><h2>Recent Tasks</h2><a href="#tasks" class="link">View all</a></div>
+          ${recent.length ? `<div>${recent.map(t => taskRowHtml(t, true)).join('')}</div>` : `
+            <div class="empty-state"><h3>Nothing here yet</h3><p>Create a task to get started.</p>
+              <button class="btn btn-primary btn-sm" data-action="new-task" type="button">+ Create Task</button></div>`}
+        </section>
+        <section class="panel">
+          <div class="panel-head"><h2>Your Projects</h2><a href="#projects" class="link">View all</a></div>
+          ${state.projects.length ? `<div style="display:flex;flex-direction:column;gap:12px">${state.projects.slice(0,5).map(p => {
+            const ps = projectStats(p.id);
+            return `<div><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+              <span style="display:flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600">
+                <span class="proj-color" style="background:${p.color}"></span>${TK.escapeHtml(p.name)}</span>
+              <span style="font-size:12px;color:var(--slate-500)">${ps.total === 0 ? 'No tasks' : ps.percent + '%'}</span>
+            </div><div class="proj-bar"><i style="width:${ps.percent||0}%;background:${p.color}"></i></div></div>`;
+          }).join('')}</div>` : `
+            <div class="empty-state"><h3>No projects yet</h3><p>Your projects will appear here when you create them.</p>
+              <button class="btn btn-primary btn-sm" data-action="new-project" type="button">+ Create Project</button></div>`}
+        </section>
+        <section class="panel">
+          <div class="panel-head"><h2>Upcoming Deadlines</h2><a href="#calendar" class="link">Calendar</a></div>
+          ${upcoming.length ? `<div>${upcoming.map(t => `
+            <div class="task-row"><div class="task-body">
+              <h4>${TK.escapeHtml(t.title)}</h4>
+              <div class="task-meta">
+                <span class="chip due">${TK.fmtDateShort(t.dueDate)}</span>
+                <span class="chip priority-${t.priority}">${PRIORITY_LABELS[t.priority]}</span>
+                ${t.projectId ? `<span class="chip proj">${TK.escapeHtml(projectName(t.projectId))}</span>` : ''}
+              </div>
+            </div><button class="btn btn-ghost btn-sm" data-action="edit-task" data-id="${t.id}" type="button">Open</button></div>
+          `).join('')}</div>` : `
+            <div class="empty-state"><h3>You're all caught up</h3><p>There are no upcoming deadlines to display.</p></div>`}
+        </section>
+      </div>`;
+  }
+
+  function filteredTasks(){
+    let list = state.tasks.slice();
+    const q = state.search.trim().toLowerCase();
+    if (q) list = list.filter(t => t.title.toLowerCase().includes(q) || (t.description||'').toLowerCase().includes(q));
+    if (state.fStatus !== 'all') list = list.filter(t => t.status === state.fStatus);
+    if (state.fPriority !== 'all') list = list.filter(t => t.priority === state.fPriority);
+    if (state.fProject !== 'all') list = list.filter(t => (t.projectId||'') === state.fProject);
+    const sorters = {
+      'due-asc': (a,b) => (a.dueDate||'9999').localeCompare(b.dueDate||'9999'),
+      'due-desc': (a,b) => (b.dueDate||'').localeCompare(a.dueDate||''),
+      'priority-desc': (a,b) => (['low','medium','high','urgent'].indexOf(b.priority)) - (['low','medium','high','urgent'].indexOf(a.priority)),
+      'created-desc': (a,b) => (b.createdAt||'').localeCompare(a.createdAt||''),
+      'updated-desc': (a,b) => (b.updatedAt||'').localeCompare(a.updatedAt||'')
+    };
+    list.sort(sorters[state.sort] || sorters['due-asc']);
+    return list;
+  }
+
+  function renderTasks(){
+    const list = filteredTasks();
+    const projectOpts = state.projects.map(p =>
+      `<option value="${p.id}" ${state.fProject === p.id ? 'selected' : ''}>${TK.escapeHtml(p.name)}</option>`
+    ).join('');
+    return `
+      <div class="toolbar">
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="taskSearch" placeholder="Search tasks..." value="${TK.escapeHtml(state.search)}">
+        </div>
+        <select id="filterStatus">
+          <option value="all" ${state.fStatus==='all'?'selected':''}>All statuses</option>
+          <option value="todo" ${state.fStatus==='todo'?'selected':''}>To Do</option>
+          <option value="in-progress" ${state.fStatus==='in-progress'?'selected':''}>In Progress</option>
+          <option value="completed" ${state.fStatus==='completed'?'selected':''}>Completed</option>
+        </select>
+        <select id="filterPriority">
+          <option value="all" ${state.fPriority==='all'?'selected':''}>All priorities</option>
+          <option value="low" ${state.fPriority==='low'?'selected':''}>Low</option>
+          <option value="medium" ${state.fPriority==='medium'?'selected':''}>Medium</option>
+          <option value="high" ${state.fPriority==='high'?'selected':''}>High</option>
+          <option value="urgent" ${state.fPriority==='urgent'?'selected':''}>Urgent</option>
+        </select>
+        <select id="filterProject"><option value="all" ${state.fProject==='all'?'selected':''}>All projects</option>${projectOpts}</select>
+        <select id="sortBy">
+          <option value="due-asc" ${state.sort==='due-asc'?'selected':''}>Due: Earliest</option>
+          <option value="due-desc" ${state.sort==='due-desc'?'selected':''}>Due: Latest</option>
+          <option value="priority-desc" ${state.sort==='priority-desc'?'selected':''}>Priority: High</option>
+          <option value="created-desc" ${state.sort==='created-desc'?'selected':''}>Recently created</option>
+        </select>
+        <button class="btn btn-primary" data-action="new-task" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> New Task
+        </button>
+      </div>
+      ${list.length ? `<div class="panel"><div>${list.map(t => taskRowHtml(t, false)).join('')}</div></div>` : `
+        <div class="panel"><div class="empty-state">
+          <h3>${state.tasks.length === 0 ? 'No tasks yet' : 'No matching tasks'}</h3>
+          <p>${state.tasks.length === 0 ? 'Create your first task to start organizing your work.' : 'Try changing your search or filters.'}</p>
+          ${state.tasks.length === 0
+            ? `<button class="btn btn-primary btn-sm" data-action="new-task" type="button">+ Create Task</button>`
+            : `<button class="btn btn-ghost btn-sm" data-action="clear-filters" type="button">Clear Filters</button>`}
+        </div></div>`}`;
+  }
+
+  function renderProjects(){
+    return `
+      <div class="toolbar">
+        <div style="flex:1"></div>
+        <button class="btn btn-primary" data-action="new-project" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg> New Project
+        </button>
+      </div>
+      ${state.projects.length ? `<div class="project-grid">${state.projects.map(p => {
+        const ps = projectStats(p.id);
+        return `
+          <article class="project-card">
+            <div class="proj-title"><span class="proj-color" style="background:${p.color}"></span><span>${TK.escapeHtml(p.name)}</span></div>
+            <p class="proj-desc">${TK.escapeHtml(p.description || 'No description')}</p>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--slate-500);margin-bottom:5px">
+                <span>${ps.total === 0 ? 'No tasks yet' : ps.completed + ' of ' + ps.total + ' completed'}</span>
+                <span>${ps.percent == null ? '—' : ps.percent + '%'}</span>
+              </div>
+              <div class="proj-bar"><i style="width:${ps.percent||0}%;background:${p.color}"></i></div>
+            </div>
+            <div class="proj-actions">
+              <button class="btn btn-ghost" data-action="view-project-tasks" data-id="${p.id}" type="button">View Tasks</button>
+              <button class="icon-action" data-action="edit-project" data-id="${p.id}" type="button" aria-label="Edit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+              </button>
+              <button class="icon-action danger" data-action="delete-project" data-id="${p.id}" type="button" aria-label="Delete">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+              </button>
+            </div>
+          </article>`;
+      }).join('')}</div>` : `
+        <div class="panel"><div class="empty-state">
+          <h3>No projects yet</h3><p>Start by creating a project for a goal or area of work.</p>
+          <button class="btn btn-primary btn-sm" data-action="new-project" type="button">+ Create Your First Project</button>
+        </div></div>`}`;
+  }
+
+  function kanbanCardHtml(t){
+    const overdue = TK.isOverdue(t);
+    return `
+      <div class="kanban-card" draggable="true" data-id="${t.id}">
+        <h4>${TK.escapeHtml(t.title)}</h4>
+        <div class="k-meta">
+          <span class="chip priority-${t.priority}">${PRIORITY_LABELS[t.priority]}</span>
+          ${t.dueDate ? `<span class="chip due ${overdue ? 'overdue' : ''}">${overdue ? '⚠ ' : ''}${TK.fmtDateShort(t.dueDate)}</span>` : ''}
+          ${t.projectId ? `<span class="chip proj">${TK.escapeHtml(projectName(t.projectId))}</span>` : ''}
+        </div>
+        <div class="k-actions">
+          <button class="icon-action" data-action="edit-task" data-id="${t.id}" type="button" aria-label="Edit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+          </button>
+          <button class="icon-action danger" data-action="delete-task" data-id="${t.id}" type="button" aria-label="Delete">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+          </button>
+        </div>
+      </div>`;
+  }
+
+  function renderBoard(){
+    const cols = [
+      { key:'todo', label:'To Do' },
+      { key:'in-progress', label:'In Progress' },
+      { key:'completed', label:'Completed' }
+    ];
+    return `<div class="kanban-board">
+      ${cols.map(c => {
+        const tasks = state.tasks.filter(t => t.status === c.key);
+        return `<div class="kanban-col" data-status="${c.key}">
+          <div class="kanban-col-head"><h3>${c.label} <span class="count">${tasks.length}</span></h3></div>
+          <div class="kanban-cards">${tasks.length ? tasks.map(kanbanCardHtml).join('') : `
+            <div style="padding:16px 8px;text-align:center;font-size:12px;color:var(--slate-400)">No tasks in this column.</div>`}
+          </div></div>`;
+      }).join('')}
+    </div>`;
+  }
+
+  function renderCalendar(){
+    const year = state.calDate.getFullYear();
+    const month = state.calDate.getMonth();
+    const first = new Date(year, month, 1);
+    const startDow = first.getDay();
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+    const prevDays = new Date(year, month, 0).getDate();
+    const monthName = state.calDate.toLocaleDateString(undefined, { month:'long', year:'numeric' });
+    const todayS = TK.todayStr();
+    const cells = [];
+    for (let i = startDow - 1; i >= 0; i--){
+      cells.push({ date:new Date(year, month-1, prevDays - i), other:true });
+    }
+    for (let d = 1; d <= daysInMonth; d++){
+      cells.push({ date:new Date(year, month, d), other:false });
+    }
+    while (cells.length < 42){
+      const last = cells[cells.length-1].date;
+      const nd = new Date(last); nd.setDate(nd.getDate()+1);
+      cells.push({ date:nd, other:true });
+    }
+    const tasksByDate = {};
+    state.tasks.forEach(t => { if (t.dueDate) (tasksByDate[t.dueDate] = tasksByDate[t.dueDate] || []).push(t); });
+    const selectedStr = state.calSelected;
+    const selectedTasks = selectedStr ? (tasksByDate[selectedStr] || []) : [];
+    return `
+      <div class="cal-header">
+        <div class="cal-nav"><button class="btn btn-ghost" data-action="cal-prev" type="button">‹ Prev</button></div>
+        <h2>${monthName}</h2>
+        <div class="cal-nav">
+          <button class="btn btn-ghost" data-action="cal-today" type="button">Today</button>
+          <button class="btn btn-ghost" data-action="cal-next" type="button">Next ›</button>
+        </div>
+      </div>
+      <div class="cal-grid">
+        ${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d => `<div class="cal-dow">${d}</div>`).join('')}
+        ${cells.map(c => {
+          const y = c.date.getFullYear();
+          const m = String(c.date.getMonth()+1).padStart(2,'0');
+          const d = String(c.date.getDate()).padStart(2,'0');
+          const ds = `${y}-${m}-${d}`;
+          const has = !!tasksByDate[ds];
+          const cls = ['cal-day'];
+          if (c.other) cls.push('other');
+          if (ds === todayS) cls.push('today');
+          if (ds === selectedStr) cls.push('selected');
+          if (has) cls.push('has-tasks');
+          return `<button class="${cls.join(' ')}" data-action="cal-select" data-date="${ds}" type="button">${c.date.getDate()}</button>`;
+        }).join('')}
+      </div>
+      <div class="cal-tasks">
+        ${selectedStr ? `
+          <h3>Tasks for ${TK.fmtDate(selectedStr)} <small>(${selectedTasks.length})</small></h3>
+          ${selectedTasks.length ? `<div class="panel">${selectedTasks.map(t => taskRowHtml(t, true)).join('')}</div>` : `
+            <div class="panel"><div class="empty-state">
+              <h3>No tasks on this date</h3><p>Schedule something for ${TK.fmtDate(selectedStr)}.</p>
+              <button class="btn btn-primary btn-sm" data-action="add-task-for-date" data-date="${selectedStr}" type="button">+ Add Task for This Date</button>
+            </div></div>`}
+        ` : `<div class="panel"><div class="empty-state"><p>Select a date to view its scheduled tasks.</p></div></div>`}
+      </div>`;
+  }
+
+  function renderSettings(){
+    const theme = document.documentElement.getAttribute('data-theme');
+    const user = TK.getUser() || {};
+    const plan = TK.getPlan();
+    return `
+      <div class="panel" style="max-width:760px">
+        <div class="settings-section">
+          <h3>Account</h3>
+          <div class="settings-row">
+            <div><h4>${TK.escapeHtml(user.name || 'User')}</h4><p>${TK.escapeHtml(user.email || '—')}</p></div>
+            <button class="btn btn-danger" data-action="sign-out" type="button">Sign Out</button>
+          </div>
+          <div class="settings-row">
+            <div><h4>Current plan</h4><p>You are on the <strong style="text-transform:capitalize;color:var(--blue-600)">${plan}</strong> plan.</p></div>
+            <a href="payment.html?plan=pro" class="btn btn-ghost" style="font-size:12.5px">Upgrade</a>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h3>Appearance</h3>
+          <div class="settings-row">
+            <div><h4>Theme</h4><p>Choose light or dark mode. Your preference is saved.</p></div>
+            <div class="theme-options">
+              <button class="theme-opt ${theme === 'light' ? 'active' : ''}" data-action="set-theme" data-theme="light" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+                Light
+              </button>
+              <button class="theme-opt ${theme === 'dark' ? 'active' : ''}" data-action="set-theme" data-theme="dark" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                Dark
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h3>Data</h3>
+          <div class="settings-row">
+            <div><h4>Export data</h4><p>Download a JSON backup of all tasks and projects.</p></div>
+            <button class="btn btn-ghost" data-action="export-data" type="button">Export JSON</button>
+          </div>
+          <div class="settings-row">
+            <div><h4>Clear local data</h4><p>Permanently remove all tasks and projects from this browser.</p></div>
+            <button class="btn btn-danger" data-action="clear-data" type="button">Clear Data</button>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h3>About</h3>
+          <div class="settings-row">
+            <div><h4>Taskora</h4><p>Version 1.0 · Local-first task manager</p></div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  /* ============ RENDER ============ */
+  const appView = document.getElementById('appView');
+  const appTitle = document.getElementById('appTitle');
+  function renderApp(){
+    appTitle.textContent = VIEW_TITLES[state.view] || 'Dashboard';
+    document.querySelectorAll('#appNav a').forEach(a => {
+      a.classList.toggle('active', a.dataset.view === state.view);
+    });
+    let html = '';
+    switch (state.view){
+      case 'dashboard': html = renderDashboard(); break;
+      case 'tasks': html = renderTasks(); break;
+      case 'projects': html = renderProjects(); break;
+      case 'board': html = renderBoard(); break;
+      case 'calendar': html = renderCalendar(); break;
+      case 'settings': html = renderSettings(); break;
+      default: html = renderDashboard();
+    }
+    appView.innerHTML = html;
+    bindViewEvents();
+  }
+
+  function bindViewEvents(){
+    const s = document.getElementById('taskSearch');
+    if (s) s.addEventListener('input', e => {
+      state.search = e.target.value; renderApp();
+      const ns = document.getElementById('taskSearch');
+      if (ns){ ns.focus(); ns.setSelectionRange(ns.value.length, ns.value.length); }
+    });
+    const fs = document.getElementById('filterStatus');
+    if (fs) fs.addEventListener('change', e => { state.fStatus = e.target.value; renderApp(); });
+    const fp = document.getElementById('filterPriority');
+    if (fp) fp.addEventListener('change', e => { state.fPriority = e.target.value; renderApp(); });
+    const fpr = document.getElementById('filterProject');
+    if (fpr) fpr.addEventListener('change', e => { state.fProject = e.target.value; renderApp(); });
+    const sb = document.getElementById('sortBy');
+    if (sb) sb.addEventListener('change', e => { state.sort = e.target.value; renderApp(); });
+
+    if (state.view === 'board'){
+      let dragId = null;
+      appView.querySelectorAll('.kanban-card').forEach(card => {
+        card.addEventListener('dragstart', e => {
+          dragId = card.dataset.id; card.classList.add('dragging');
+          try{ e.dataTransfer.setData('text/plain', dragId); e.dataTransfer.effectAllowed = 'move'; }catch(_){}
+        });
+        card.addEventListener('dragend', () => { card.classList.remove('dragging'); dragId = null; });
+      });
+      appView.querySelectorAll('.kanban-col').forEach(col => {
+        col.addEventListener('dragover', e => { e.preventDefault(); col.classList.add('drag-over'); });
+        col.addEventListener('dragleave', () => col.classList.remove('drag-over'));
+        col.addEventListener('drop', e => {
+          e.preventDefault(); col.classList.remove('drag-over');
+          const id = dragId || (e.dataTransfer && e.dataTransfer.getData('text/plain'));
+          if (!id) return;
+          const t = state.tasks.find(x => x.id === id);
+          if (!t) return;
+          const newStatus = col.dataset.status;
+          if (t.status !== newStatus){
+            t.status = newStatus; t.updatedAt = new Date().toISOString();
+            saveTasks(); renderApp();
+          }
+        });
+      });
+    }
+  }
+
+  appView.addEventListener('click', e => {
+    const btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    const id = btn.dataset.id;
+    switch (action){
+      case 'new-task': e.preventDefault(); openTaskModal(null); break;
+      case 'new-project': e.preventDefault(); openProjectModal(null); break;
+      case 'edit-task': e.preventDefault(); openTaskModal(id); break;
+      case 'delete-task':
+        e.preventDefault();
+        confirmDialog('Delete this task?',
+          'This action will remove the task from your workspace and update the relevant project statistics.',
+          'Delete Task', () => {
+            state.tasks = state.tasks.filter(t => t.id !== id);
+            saveTasks(); TK.toast('Task deleted', 'success'); renderApp();
+          });
+        break;
+      case 'toggle-task': {
+        e.preventDefault();
+        const t = state.tasks.find(x => x.id === id);
+        if (!t) return;
+        t.status = t.status === 'completed' ? 'todo' : 'completed';
+        t.updatedAt = new Date().toISOString();
+        saveTasks(); renderApp();
+        break;
+      }
+      case 'edit-project': e.preventDefault(); openProjectModal(id); break;
+      case 'delete-project':
+        e.preventDefault();
+        confirmDialog('Delete this project?',
+          'Tasks in this project will remain but will no longer be linked to this project.',
+          'Delete Project', () => {
+            state.projects = state.projects.filter(p => p.id !== id);
+            state.tasks.forEach(t => { if (t.projectId === id) t.projectId = null; });
+            saveProjects(); saveTasks();
+            TK.toast('Project deleted', 'success'); renderApp();
+          });
+        break;
+      case 'view-project-tasks':
+        e.preventDefault();
+        state.search = ''; state.fStatus = 'all'; state.fPriority = 'all'; state.fProject = id;
+        location.hash = '#tasks';
+        break;
+      case 'clear-filters':
+        e.preventDefault();
+        state.search = ''; state.fStatus = 'all'; state.fPriority = 'all'; state.fProject = 'all'; state.sort = 'due-asc';
+        renderApp();
+        break;
+      case 'cal-prev':
+        e.preventDefault();
+        state.calDate = new Date(state.calDate.getFullYear(), state.calDate.getMonth() - 1, 1);
+        renderApp();
+        break;
+      case 'cal-next':
+        e.preventDefault();
+        state.calDate = new Date(state.calDate.getFullYear(), state.calDate.getMonth() + 1, 1);
+        renderApp();
+        break;
+      case 'cal-today':
+        e.preventDefault();
+        state.calDate = new Date(); state.calSelected = TK.todayStr(); renderApp();
+        break;
+      case 'cal-select':
+        e.preventDefault(); state.calSelected = btn.dataset.date; renderApp();
+        break;
+      case 'add-task-for-date':
+        e.preventDefault(); openTaskModal(null, btn.dataset.date);
+        break;
+      case 'set-theme':
+        e.preventDefault(); TK.setTheme(btn.dataset.theme); renderApp();
+        break;
+      case 'export-data': {
+        e.preventDefault();
+        const data = { tasks: state.tasks, projects: state.projects, exportedAt: new Date().toISOString() };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type:'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'taskora-backup-' + TK.todayStr() + '.json';
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        TK.toast('Backup downloaded', 'success');
+        break;
+      }
+      case 'clear-data':
+        e.preventDefault();
+        confirmDialog('Clear your local Taskora data?',
+          'This will permanently remove all locally stored tasks and projects. Export any data you want to keep before proceeding.',
+          'Clear Data', () => {
+            TK.clearData();
+            state.tasks = []; state.projects = [];
+            TK.toast('Local data cleared', 'success'); renderApp();
+          });
+        break;
+      case 'sign-out':
+        e.preventDefault();
+        confirmDialog('Sign out of Taskora?',
+          'Your local data stays saved. You can sign back in anytime.',
+          'Sign Out', () => {
+            TK.clearUser();
+            window.location.replace('index.html');
+          });
+        break;
+    }
+  });
+
+  /* ============ SIDEBAR ============ */
+  const appSidebar = document.getElementById('appSidebar');
+  const appMenuToggle = document.getElementById('appMenuToggle');
+  const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+  function openSidebar(){
+    appSidebar.classList.add('open');
+    sidebarBackdrop.classList.add('show');
+    appMenuToggle.setAttribute('aria-expanded','true');
+  }
+  function closeSidebar(){
+    appSidebar.classList.remove('open');
+    sidebarBackdrop.classList.remove('show');
+    appMenuToggle.setAttribute('aria-expanded','false');
+  }
+  appMenuToggle.addEventListener('click', () => {
+    if (appSidebar.classList.contains('open')) closeSidebar(); else openSidebar();
+  });
+  sidebarBackdrop.addEventListener('click', closeSidebar);
+
+  /* ============ ROUTER ============ */
+  function route(){
+    const hash = (location.hash || '#dashboard').replace('#','');
+    state.view = VIEW_TITLES[hash] ? hash : 'dashboard';
+    renderApp();
+    closeSidebar();
+  }
+  window.addEventListener('hashchange', route);
+
+  /* ============ BOOT ============ */
+  document.getElementById('appRoot').hidden = false;
+  route();
+})();
+</script>
+</body>
+</html>

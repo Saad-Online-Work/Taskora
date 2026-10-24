@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account — Taskora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="auth-page">
+  <div class="auth-card">
+    <a href="index.html" class="auth-brand">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      Taskora
+    </a>
+    <h2>Create your account</h2>
+    <p class="lead">Set up your workspace to get started.</p>
+    <form id="signupForm" novalidate>
+      <div class="form-group">
+        <label>Full Name <span class="req">*</span></label>
+        <input name="name" type="text" required maxlength="80" placeholder="Muhammad Saad" autocomplete="name">
+        <div class="form-error" data-error="name">Please enter your name.</div>
+      </div>
+      <div class="form-group">
+        <label>Email Address <span class="req">*</span></label>
+        <input name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+        <div class="form-error" data-error="email">Please enter a valid email address.</div>
+      </div>
+      <div class="form-group">
+        <label>Password <span class="req">*</span></label>
+        <input name="password" type="password" required minlength="4" placeholder="At least 4 characters" autocomplete="new-password">
+        <div class="form-error" data-error="password">Password must be at least 4 characters.</div>
+      </div>
+      <div class="form-group">
+        <label>Confirm Password <span class="req">*</span></label>
+        <input name="confirm" type="password" required placeholder="Repeat password" autocomplete="new-password">
+        <div class="form-error" data-error="confirm">Passwords do not match.</div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary btn-block" type="submit" id="submitBtn">Create Account</button>
+      </div>
+    </form>
+    <div class="auth-divider">or</div>
+    <div class="auth-alt">Already have an account? <a href="signin.html">Sign in</a></div>
+    <div class="auth-alt" style="margin-top:8px"><a href="index.html" style="color:var(--slate-500);font-weight:500">← Back to home</a></div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  // If already signed in, go to app
+  if (TK.getUser()){ window.location.replace('app.html'); return; }
+
+  const form = document.getElementById('signupForm');
+  const btn = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const name = (fd.get('name') || '').trim();
+    const email = (fd.get('email') || '').trim();
+    const password = fd.get('password') || '';
+    const confirm = fd.get('confirm') || '';
+    const errors = {
+      name: form.querySelector('[data-error="name"]'),
+      email: form.querySelector('[data-error="email"]'),
+      password: form.querySelector('[data-error="password"]'),
+      confirm: form.querySelector('[data-error="confirm"]')
+    };
+    Object.values(errors).forEach(el => el.classList.remove('show'));
+    let ok = true;
+    if (!name){ errors.name.classList.add('show'); ok = false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ errors.email.classList.add('show'); ok = false; }
+    if (password.length < 4){ errors.password.classList.add('show'); ok = false; }
+    if (password !== confirm){ errors.confirm.classList.add('show'); ok = false; }
+    if (!ok) return;
+
+    btn.classList.add('loading'); btn.disabled = true;
+
+    setTimeout(() => {
+      TK.setUser({
+        name, email,
+        passwordHash: btoa(password),
+        createdAt: new Date().toISOString()
+      });
+      // Seed plan if coming from payment flow
+      const plan = new URLSearchParams(location.search).get('plan');
+      if (plan) TK.setPlan(plan);
+      TK.toast('Account created. Welcome to Taskora!', 'success');
+      window.location.replace('app.html');
+    }, 800);
+  });
+})();
+</script>
+</body>
+</html>
