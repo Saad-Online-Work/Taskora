@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading — VYQORLUNE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body {
+  width:100%; height:100%;
+  overflow:hidden;
+  font-family:'Inter',system-ui,sans-serif;
+  background: radial-gradient(circle at 50% 50%, #1e3a8a 0%, #0b1220 75%);
+  color:#fff;
+}
+
+.travel-page {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  transition: opacity .35s ease, transform .35s ease;
+}
+.travel-page.exit {
+  opacity: 0;
+  transform: scale(1.06);
+}
+
+/* ====== Glow orbs ====== */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .45;
+  pointer-events: none;
+}
+.orb-1 {
+  width: 520px; height: 520px;
+  background: #3b82f6;
+  top: -120px; left: -120px;
+  animation: orbFloat 9s ease-in-out infinite;
+}
+.orb-2 {
+  width: 420px; height: 420px;
+  background: #8b5cf6;
+  bottom: -120px; right: -120px;
+  animation: orbFloat 9s ease-in-out infinite -4s;
+}
+@keyframes orbFloat {
+  0%,100% { transform: translate(0,0) scale(1); opacity:.45; }
+  50%     { transform: translate(50px,-40px) scale(1.15); opacity:.6; }
+}
+
+/* ====== Traveling streaks ====== */
+.streaks {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.streak {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(96,165,250,.9), transparent);
+  border-radius: 2px;
+  animation: streakMove linear infinite;
+  will-change: transform;
+}
+@keyframes streakMove {
+  0%   { transform: translateX(-200%) scaleX(.4); opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { transform: translateX(calc(100vw + 200%)) scaleX(1.4); opacity: 0; }
+}
+
+/* ====== Center content ====== */
+.travel-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Logo + rings */
+.travel-logo {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: grid;
+  place-items: center;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #60a5fa, #2563eb);
+  box-shadow: 0 30px 60px -14px rgba(37,99,235,.9);
+  animation: logoFloat 2s ease-in-out infinite;
+}
+@keyframes logoFloat {
+  0%,100% { transform: translateY(0) scale(1); }
+  50%     { transform: translateY(-6px) scale(1.02); }
+}
+.travel-logo svg {
+  width: 52px;
+  height: 52px;
+  color: #fff;
+  animation: checkPulse 2s ease-in-out infinite;
+}
+@keyframes checkPulse {
+  0%,100% { opacity: .85; transform: scale(1); }
+  50%     { opacity: 1; transform: scale(1.05); }
+}
+
+.ring {
+  position: absolute;
+  inset: -20px;
+  border-radius: 34px;
+  border: 2px solid rgba(96,165,250,.55);
+  pointer-events: none;
+  animation: ringExpand 2.2s ease-out infinite;
+}
+.ring:nth-child(2) { animation-delay: .73s; }
+.ring:nth-child(3) { animation-delay: 1.46s; }
+@keyframes ringExpand {
+  0%   { transform: scale(1); opacity: .9; }
+  100% { transform: scale(2.3); opacity: 0; }
+}
+
+/* Text */
+.travel-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.travel-sub {
+  font-size: 14px;
+  color: #93b3df;
+  min-height: 22px;
+  transition: opacity .3s;
+}
+
+/* Progress bar */
+.travel-bar {
+  width: min(320px, 80vw);
+  height: 6px;
+  background: rgba(255,255,255,.1);
+  border-radius: 99px;
+  overflow: hidden;
+  position: relative;
+}
+.travel-bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa, #60a5fa);
+  background-size: 200% 100%;
+  animation:
+    barFill 2s cubic-bezier(.4,0,.2,1) forwards,
+    barShift 1.2s linear infinite;
+  box-shadow: 0 0 14px rgba(96,165,250,.8);
+}
+@keyframes barFill {
+  0%   { width: 0%; }
+  30%  { width: 45%; }
+  70%  { width: 78%; }
+  100% { width: 100%; }
+}
+@keyframes barShift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Trail dots */
+.trail {
+  display: flex;
+  gap: 8px;
+}
+.trail span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #60a5fa;
+  opacity: .3;
+  animation: dotPulse 1.2s ease-in-out infinite;
+}
+.trail span:nth-child(2) { animation-delay: .15s; }
+.trail span:nth-child(3) { animation-delay: .3s; }
+@keyframes dotPulse {
+  0%,100% { opacity: .3; transform: scale(1); }
+  50%     { opacity: 1; transform: scale(1.4); }
+}
+
+@media (max-width: 560px){
+  .travel-logo { width: 90px; height: 90px; border-radius: 24px; }
+  .travel-logo svg { width: 42px; height: 42px; }
+  .travel-title { font-size: 22px; }
+  .travel-sub { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+
+<div class="travel-page" id="travelPage">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="streaks" id="streaks"></div>
+
+  <div class="travel-content">
+    <div class="travel-logo">
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <span class="ring"></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+    </div>
+
+    <div>
+      <div class="travel-title">Welcome Back</div>
+      <div class="travel-sub" id="travelSub">Authenticating your session...</div>
+    </div>
+
+    <div class="travel-bar"><i></i></div>
+
+    <div class="trail">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  /* Guard — must be signed in to reach this page */
+  const user = TK.getUser();
+  if (!user){
+    window.location.replace('signin.html');
+    return;
+  }
+
+  /* Generate traveling streaks */
+  const streaks = document.getElementById('streaks');
+  const NUM = 22;
+  for (let i = 0; i < NUM; i++){
+    const s = document.createElement('div');
+    s.className = 'streak';
+    s.style.top = (Math.random() * 100) + '%';
+    s.style.width = (60 + Math.random() * 240) + 'px';
+    s.style.animationDuration = (1.8 + Math.random() * 2.2) + 's';
+    s.style.animationDelay = (Math.random() * 2.2) + 's';
+    s.style.opacity = (0.25 + Math.random() * 0.65).toString();
+    streaks.appendChild(s);
+  }
+
+  /* Rotating messages */
+  const messages = [
+    'Authenticating your session...',
+    'Loading your workspace...',
+    'Syncing your tasks...',
+    'Almost ready...'
+  ];
+  const sub = document.getElementById('travelSub');
+  let i = 0;
+  const interval = setInterval(() => {
+    i++;
+    if (i < messages.length){
+      sub.style.opacity = '0';
+      setTimeout(() => {
+        sub.textContent = messages[i];
+        sub.style.opacity = '1';
+      }, 180);
+    } else {
+      clearInterval(interval);
+    }
+  }, 500);
+
+  /* After 2.2s → smooth exit → app.html (or onboarding if needed) */
+  setTimeout(() => {
+    clearInterval(interval);
+    const page = document.getElementById('travelPage');
+    page.classList.add('exit');
+
+    setTimeout(() => {
+      window.location.replace(user.onboarded ? 'app.html' : 'onboarding.html');
+    }, 350);
+  }, 2200);
+})();
+</script>
+</body>
+</html>

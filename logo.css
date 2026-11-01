@@ -1,0 +1,15 @@
+#logo{
+    
+    background-image: url('logo');
+background-size: cover;
+width: 400px;
+height: 500px;
+right: 0px;
+
+}
+#logo image{
+    width: 10px;
+    
+    
+    
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — VYQORLUNE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-shell">
+  <aside class="auth-brand">
+    <a href="index.html" class="auth-logo-card" aria-label="VYQORLUNE home">
+      <img src="logo.png" alt="VYQORLUNE — Plan · Focus · Achieve">
+    </a>
+    <div class="auth-brand-copy">
+      <h2>Welcome back.<br><span>Pick up where you left off.</span></h2>
+      <p>Your tasks, projects and calendar are waiting. Sign in to continue planning and finishing what matters.</p>
+      <ul class="auth-points">
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Search and filter tasks by status, priority and project</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>See upcoming deadlines on your dashboard</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Track your token balance and receipts in Settings</li>
+      </ul>
+    </div>
+    <div class="auth-foot">© 2026 VYQORLUNE · Demo account system, data stays in this browser.</div>
+  </aside>
+
+  <main class="auth-form-side">
+    <div class="auth-card">
+      <div class="auth-mobile-logo"><img src="logo.png" alt="VYQORLUNE"></div>
+
+      <!-- Sign-in panel -->
+      <section id="panelSignin" class="auth-panel">
+        <span class="auth-kicker">Secure sign in</span>
+        <h1>Sign in</h1>
+        <p class="auth-sub">Enter the email and password you used to create your account.</p>
+
+        <div class="auth-banner error" id="signinBanner" hidden></div>
+
+        <form id="signinForm" novalidate>
+          <div class="auth-field" id="fEmail">
+            <label for="si-email">Email address <span class="req">*</span></label>
+            <div class="auth-input-wrap">
+              <input class="auth-input" id="si-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+              <span class="lead-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+            </div>
+            <div class="auth-error">Please enter a valid email address.</div>
+          </div>
+
+          <div class="auth-field" id="fPass">
+            <label for="si-pass">Password <span class="req">*</span></label>
+            <div class="auth-input-wrap has-toggle">
+              <input class="auth-input" id="si-pass" name="password" type="password" autocomplete="current-password" placeholder="Your password">
+              <span class="lead-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+              <button type="button" class="auth-eye" data-toggle-password aria-label="Show password" aria-pressed="false">
+                <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>
+              </button>
+            </div>
+            <div class="auth-error">Please enter your password.</div>
+          </div>
+
+          <div class="auth-row-end"><button type="button" class="auth-link-btn" id="showForgot">Forgot password?</button></div>
+
+          <button class="auth-submit" type="submit" id="signinBtn">Sign in</button>
+        </form>
+
+        <div class="auth-divider">or</div>
+        <p class="auth-switch">New to VYQORLUNE? <a href="signup.html" data-leave>Create an account</a></p>
+        <a href="index.html" class="auth-back" data-leave>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to home
+        </a>
+      </section>
+
+      <!-- Forgot password panel (demo) -->
+      <section id="panelForgot" class="auth-panel" hidden>
+        <span class="auth-kicker">Demo reset</span>
+        <h1>Reset password</h1>
+        <p class="auth-sub">Enter your account email and choose a new password. No email is sent in this demo; the new password is saved on this browser.</p>
+
+        <div class="auth-banner info" id="forgotInfo" hidden></div>
+        <div class="auth-banner error" id="forgotBanner" hidden></div>
+
+        <form id="forgotForm" novalidate>
+          <div class="auth-field" id="fgEmail">
+            <label for="fg-email">Email address <span class="req">*</span></label>
+            <div class="auth-input-wrap">
+              <input class="auth-input" id="fg-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+              <span class="lead-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+            </div>
+            <div class="auth-error">Please enter a valid email address.</div>
+          </div>
+
+          <div class="auth-field" id="fgPass">
+            <label for="fg-pass">New password <span class="req">*</span></label>
+            <div class="auth-input-wrap has-toggle">
+              <input class="auth-input" id="fg-pass" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+              <span class="lead-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+              <button type="button" class="auth-eye" data-toggle-password aria-label="Show password" aria-pressed="false">
+                <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>
+              </button>
+            </div>
+            <div class="auth-meter" id="fgMeter" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <div class="auth-error">Password must be at least 8 characters.</div>
+          </div>
+
+          <div class="auth-field" id="fgConfirm">
+            <label for="fg-confirm">Confirm new password <span class="req">*</span></label>
+            <div class="auth-input-wrap has-toggle">
+              <input class="auth-input" id="fg-confirm" name="confirm" type="password" autocomplete="new-password" placeholder="Repeat your new password">
+              <span class="lead-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></span>
+              <button type="button" class="auth-eye" data-toggle-password aria-label="Show password" aria-pressed="false">
+                <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>
+              </button>
+            </div>
+            <div class="auth-error">Passwords do not match.</div>
+          </div>
+
+          <button class="auth-submit" type="submit" id="forgotBtn">Save new password</button>
+        </form>
+
+        <div class="auth-divider">or</div>
+        <p class="auth-switch"><button type="button" class="auth-link-btn" id="showSignin">← Back to sign in</button></p>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script src="app.js"></script>
+<script src="js/auth-local.js"></script>
+<script src="js/auth-ui.js"></script>
+<script>
+(function(){
+  'use strict';
+  const UI = window.VYQ_UI, AUTH = window.VYQ_AUTH;
+  const next = new URLSearchParams(location.search).get('next') || '';
+  const safeNext = /^[a-z-]+\.html(\?[A-Za-z0-9_=&%.+-]*)?$/i.test(next) ? next : '';
+
+  const panelSignin = document.getElementById('panelSignin');
+  const panelForgot = document.getElementById('panelForgot');
+  const signinForm = document.getElementById('signinForm');
+  const signinBanner = document.getElementById('signinBanner');
+  const signinBtn = document.getElementById('signinBtn');
+  const forgotForm = document.getElementById('forgotForm');
+  const forgotBanner = document.getElementById('forgotBanner');
+  const forgotInfo = document.getElementById('forgotInfo');
+  const forgotBtn = document.getElementById('forgotBtn');
+
+  function showPanel(which){
+    const isForgot = which === 'forgot';
+    panelSignin.hidden = isForgot;
+    panelForgot.hidden = !isForgot;
+    UI.hideBanner(signinBanner);
+    UI.hideBanner(forgotBanner);
+    if (isForgot) UI.hideBanner(forgotInfo);
+  }
+
+  AUTH.getSession().then(s => { if (s) location.replace('app.html'); });
+  UI.bindStrengthMeter(document.getElementById('fg-pass'), document.getElementById('fgMeter'));
+
+  document.getElementById('showForgot').addEventListener('click', () => {
+    showPanel('forgot');
+    const email = signinForm.email.value.trim();
+    if (email) forgotForm.email.value = email;
+    forgotForm.email.focus();
+  });
+  document.getElementById('showSignin').addEventListener('click', () => {
+    showPanel('signin');
+    signinForm.email.focus();
+  });
+
+  signinForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    UI.hideBanner(signinBanner);
+    UI.clearFieldErrors(signinForm);
+    const email = signinForm.email.value.trim();
+    const password = signinForm.password.value;
+    let ok = true;
+    if (!UI.validEmail(email)){ UI.setFieldError(document.getElementById('fEmail'), 'Please enter a valid email address.'); ok = false; }
+    if (!password){ UI.setFieldError(document.getElementById('fPass'), 'Please enter your password.'); ok = false; }
+    if (!ok){
+      const first = signinForm.querySelector('.auth-field.has-error input');
+      if (first) first.focus();
+      return;
+    }
+    UI.setLoading(signinBtn, true);
+    try {
+      const result = await AUTH.signIn({ email, password });
+      const profile = await AUTH.getProfile(result.user.id);
+      location.href = safeNext || ((profile && profile.onboarded) ? 'app.html' : 'onboarding.html');
+    } catch (err){
+      UI.showBanner(signinBanner, AUTH.friendlyError(err), 'error');
+      UI.setLoading(signinBtn, false);
+    }
+  });
+
+  forgotForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    UI.hideBanner(forgotBanner);
+    UI.clearFieldErrors(forgotForm);
+    const email = forgotForm.email.value.trim();
+    const password = forgotForm.password.value;
+    const confirm = forgotForm.confirm.value;
+    let ok = true;
+    if (!UI.validEmail(email)){ UI.setFieldError(document.getElementById('fgEmail'), 'Please enter a valid email address.'); ok = false; }
+    if (password.length < 8){ UI.setFieldError(document.getElementById('fgPass'), 'Password must be at least 8 characters.'); ok = false; }
+    if (password !== confirm){ UI.setFieldError(document.getElementById('fgConfirm'), 'Passwords do not match.'); ok = false; }
+    if (!ok){
+      const first = forgotForm.querySelector('.auth-field.has-error input');
+      if (first) first.focus();
+      return;
+    }
+    UI.setLoading(forgotBtn, true);
+    try {
+      await AUTH.resetPassword({ email, password });
+      forgotForm.reset();
+      document.getElementById('fgMeter').className = 'auth-meter';
+      showPanel('signin');
+      signinForm.email.value = email;
+      signinForm.password.value = '';
+      UI.showBanner(signinBanner, 'Password updated for this browser. Sign in with your new password.', 'success');
+      signinForm.password.focus();
+    } catch (err){
+      UI.showBanner(forgotBanner, AUTH.friendlyError(err), 'error');
+    } finally {
+      UI.setLoading(forgotBtn, false);
+    }
+  });
+})();
+</script>
+</body>
+</html>

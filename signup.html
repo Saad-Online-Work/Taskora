@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account — VYQORLUNE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-shell">
+  <aside class="auth-brand">
+    <a href="index.html" class="auth-logo-card" aria-label="VYQORLUNE home">
+      <img src="logo.png" alt="VYQORLUNE — Plan · Focus · Achieve">
+    </a>
+    <div class="auth-brand-copy">
+      <h2>Plan. Organize.<br><span>Get things done.</span></h2>
+      <p>One calm workspace for your tasks, projects, deadlines and progress. Everything you create stays in your browser.</p>
+      <ul class="auth-points">
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Tasks with priorities, statuses and due dates</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Projects, a Kanban board and a calendar</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Export your data any time from Settings</li>
+      </ul>
+    </div>
+    <div class="auth-foot">© 2026 VYQORLUNE · Demo account system, data stays in this browser.</div>
+  </aside>
+
+  <main class="auth-form-side">
+    <div class="auth-card">
+      <div class="auth-mobile-logo"><img src="logo.png" alt="VYQORLUNE"></div>
+      <span class="auth-kicker">Free to start</span>
+      <h1>Create your account</h1>
+      <p class="auth-sub">Set up your workspace in under a minute.</p>
+
+      <div class="auth-banner error" id="authBanner" hidden></div>
+
+      <form id="signupForm" novalidate>
+        <div class="auth-field" id="fName">
+          <label for="su-name">Full name <span class="req">*</span></label>
+          <div class="auth-input-wrap">
+            <input class="auth-input" id="su-name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Ada Lovelace">
+            <span class="lead-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></span>
+          </div>
+          <div class="auth-error">Please enter your name.</div>
+        </div>
+
+        <div class="auth-field" id="fEmail">
+          <label for="su-email">Email address <span class="req">*</span></label>
+          <div class="auth-input-wrap">
+            <input class="auth-input" id="su-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+            <span class="lead-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+          </div>
+          <div class="auth-error">Please enter a valid email address.</div>
+        </div>
+
+        <div class="auth-field" id="fPass">
+          <label for="su-pass">Password <span class="req">*</span></label>
+          <div class="auth-input-wrap has-toggle">
+            <input class="auth-input" id="su-pass" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+            <span class="lead-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+            <button type="button" class="auth-eye" data-toggle-password aria-label="Show password" aria-pressed="false">
+              <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>
+            </button>
+          </div>
+          <div class="auth-meter" id="suMeter" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="auth-hint">Use 8+ characters. A mix of letters and numbers is stronger.</div>
+          <div class="auth-error">Password must be at least 8 characters.</div>
+        </div>
+
+        <div class="auth-field" id="fConfirm">
+          <label for="su-confirm">Confirm password <span class="req">*</span></label>
+          <div class="auth-input-wrap has-toggle">
+            <input class="auth-input" id="su-confirm" name="confirm" type="password" autocomplete="new-password" placeholder="Repeat your password">
+            <span class="lead-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></span>
+            <button type="button" class="auth-eye" data-toggle-password aria-label="Show password" aria-pressed="false">
+              <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>
+            </button>
+          </div>
+          <div class="auth-error">Passwords do not match.</div>
+        </div>
+
+        <button class="auth-submit" type="submit" id="submitBtn">Create account</button>
+      </form>
+
+      <div class="auth-divider">or</div>
+      <p class="auth-switch">Already have an account? <a href="signin.html" data-leave>Sign in</a></p>
+      <a href="index.html" class="auth-back" data-leave>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to home
+      </a>
+    </div>
+  </main>
+</div>
+
+<script src="app.js"></script>
+<script src="js/auth-local.js"></script>
+<script src="js/auth-ui.js"></script>
+<script>
+(function(){
+  'use strict';
+  const UI = window.VYQ_UI, AUTH = window.VYQ_AUTH;
+  const banner = document.getElementById('authBanner');
+  const form = document.getElementById('signupForm');
+  const btn = document.getElementById('submitBtn');
+  const meter = document.getElementById('suMeter');
+
+  AUTH.getSession().then(s => { if (s) location.replace('app.html'); });
+  UI.bindStrengthMeter(document.getElementById('su-pass'), meter);
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    UI.hideBanner(banner);
+    UI.clearFieldErrors(form);
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const password = form.password.value;
+    const confirm = form.confirm.value;
+
+    let ok = true;
+    if (!name){ UI.setFieldError(document.getElementById('fName'), 'Please enter your name.'); ok = false; }
+    if (!UI.validEmail(email)){ UI.setFieldError(document.getElementById('fEmail'), 'Please enter a valid email address.'); ok = false; }
+    if (password.length < 8){ UI.setFieldError(document.getElementById('fPass'), 'Password must be at least 8 characters.'); ok = false; }
+    if (password !== confirm){ UI.setFieldError(document.getElementById('fConfirm'), 'Passwords do not match.'); ok = false; }
+    if (!ok){
+      const first = form.querySelector('.auth-field.has-error input');
+      if (first) first.focus();
+      return;
+    }
+
+    UI.setLoading(btn, true);
+    try {
+      await AUTH.signUp({ name, email, password });
+      location.href = 'onboarding.html';
+    } catch (err){
+      UI.showBanner(banner, AUTH.friendlyError(err), 'error');
+      UI.setLoading(btn, false);
+    }
+  });
+})();
+</script>
+</body>
+</html>

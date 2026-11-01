@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome — VYQORLUNE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+html { background:#f1f7ff; }
+
+.onb-page{
+  min-height:100vh;display:grid;place-items:center;padding:32px 16px;
+  background:
+    radial-gradient(60% 70% at 15% 20%,rgba(147,197,253,.32),transparent 65%),
+    radial-gradient(60% 70% at 85% 80%,rgba(196,181,253,.26),transparent 65%),
+    linear-gradient(180deg,#f1f7ff,#fff);
+}
+.onb-box{
+  width:100%;max-width:560px;
+  background:var(--card);border:1px solid var(--line);
+  border-radius:22px;padding:36px 32px;
+  box-shadow:0 36px 70px -28px rgba(15,23,42,.35);
+}
+.onb-brand{
+  display:flex;align-items:center;gap:10px;justify-content:center;
+  font-weight:800;font-size:20px;letter-spacing:-.02em;
+  color:var(--ink);margin-bottom:8px;text-decoration:none;
+}
+.onb-brand .mark{
+  width:34px;height:34px;border-radius:10px;
+  background:linear-gradient(135deg,#60a5fa,#2563eb);
+  display:grid;place-items:center;color:#fff;
+  box-shadow:0 8px 18px -6px rgba(37,99,235,.8);
+}
+.onb-subtitle{
+  text-align:center;font-size:13px;color:var(--slate-500);
+  margin-bottom:28px;
+}
+.onb-progress-wrap{position:relative;margin-bottom:32px}
+.onb-progress-track{
+  height:6px;background:var(--line);border-radius:99px;overflow:hidden;
+}
+.onb-progress-fill{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,#60a5fa,#2563eb,#7c3aed);
+  border-radius:99px;
+  transition:width .5s cubic-bezier(.4, 0, .2, 1);
+}
+.onb-step-counter{
+  position:absolute;right:0;top:-22px;
+  font-size:11.5px;font-weight:700;color:var(--blue-600);
+  letter-spacing:.05em;
+}
+.onb-step{display:none;}
+.onb-step.active{
+  display:block;
+  animation: pageSwap .45s cubic-bezier(.22, 1, .36, 1);
+}
+@keyframes pageSwap{
+  0%{ opacity: 0; transform: scale(.96) translateY(6px); }
+  100%{ opacity: 1; transform: scale(1) translateY(0); }
+}
+.onb-emoji{
+  font-size:44px;line-height:1;text-align:center;margin-bottom:14px;
+}
+.onb-step h2{
+  font-size:24px;font-weight:800;letter-spacing:-.02em;
+  margin:0 0 8px;color:var(--ink);text-align:center;line-height:1.25;
+}
+.onb-step .lead{
+  font-size:14.5px;color:var(--slate-500);
+  margin:0 0 26px;text-align:center;line-height:1.5;
+}
+.onb-field{
+  width:100%;padding:13px 16px;border-radius:11px;
+  border:1.5px solid var(--line);background:var(--bg);
+  color:var(--ink);font:inherit;font-size:15px;
+  text-align:center;font-weight:600;
+  transition:border-color .2s,box-shadow .2s;
+}
+.onb-field:focus{
+  outline:none;border-color:var(--blue-500);
+  box-shadow:0 0 0 4px rgba(59,130,246,.16);
+}
+.onb-field.error{
+  border-color:var(--danger);
+  animation: shake .35s ease;
+}
+@keyframes shake{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  75%{transform:translateX(6px)}
+}
+.onb-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:10px;margin-bottom:6px;
+}
+.onb-opt{
+  display:flex;align-items:center;justify-content:center;
+  gap:8px;padding:16px 14px;border-radius:12px;
+  border:1.5px solid var(--line);background:var(--card);
+  font-size:13.5px;font-weight:600;color:var(--slate-600);
+  cursor:pointer;font-family:inherit;position:relative;
+  transition:transform .22s cubic-bezier(.2,.7,.2,1),
+             border-color .2s, background-color .2s, color .2s,
+             box-shadow .22s;
+}
+.onb-opt:hover{
+  transform:translateY(-2px);border-color:#bfd6fb;
+  box-shadow:0 10px 20px -10px rgba(37,99,235,.28);
+}
+.onb-opt:active{transform:translateY(0);}
+.onb-opt.active{
+  border-color:var(--blue-500);
+  background:var(--blue-50);color:var(--blue-600);
+  box-shadow:0 6px 16px -8px rgba(37,99,235,.4);
+}
+.onb-opt.active::after{
+  content:"✓";position:absolute;top:6px;right:8px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--blue-600);color:#fff;
+  display:grid;place-items:center;
+  font-size:10px;font-weight:800;
+}
+.onb-opt .ico{font-size:18px;line-height:1;}
+.onb-actions{
+  display:flex;gap:12px;justify-content:flex-end;margin-top:26px;
+}
+.onb-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:8px;font-weight:700;font-size:14.5px;
+  padding:13px 26px;border-radius:12px;
+  border:1px solid transparent;cursor:pointer;font-family:inherit;
+  transition:transform .22s cubic-bezier(.2,.7,.2,1),
+             background-color .2s, border-color .2s, box-shadow .22s;
+}
+.onb-btn:hover{transform:translateY(-1px);}
+.onb-btn:active{transform:translateY(0) scale(.97);}
+.onb-btn.primary{
+  background:#2563eb;color:#fff;
+  box-shadow:0 12px 26px -10px rgba(37,99,235,.8);
+}
+.onb-btn.primary:hover{background:#1d4ed8;}
+.onb-btn.ghost{
+  background:var(--card);border-color:var(--line);color:var(--ink);
+}
+.onb-btn.ghost:hover{background:var(--blue-50);border-color:#bfd6fb;}
+.onb-btn.lg{padding:15px 32px;font-size:15px;border-radius:13px;}
+.onb-success{text-align:center;padding:16px 0 4px;}
+.onb-success-icon{
+  width:100px;height:100px;border-radius:50%;
+  margin:0 auto 24px;
+  background:linear-gradient(135deg,#60a5fa,#2563eb);
+  display:grid;place-items:center;color:#fff;
+  box-shadow:0 24px 48px -14px rgba(37,99,235,.7);
+  animation:successPop .5s cubic-bezier(.22, 1, .36, 1);
+}
+.onb-success-icon svg{width:48px;height:48px;}
+@keyframes successPop{
+  0%{transform:scale(.6);opacity:0;}
+  100%{transform:scale(1);opacity:1;}
+}
+.onb-success h2{font-size:26px;margin-bottom:10px;}
+.onb-success p{color:var(--slate-500);margin-bottom:26px;font-size:15px;}
+.onb-confetti{
+  position:fixed;inset:0;pointer-events:none;
+  z-index:9999;overflow:hidden;
+}
+.onb-confetti i{
+  position:absolute;top:-20px;border-radius:2px;
+  animation:confettiFall linear forwards;
+}
+@keyframes confettiFall{
+  to{transform:translateY(105vh) rotate(720deg);opacity:.1;}
+}
+@media (max-width:600px){
+  .onb-box{padding:30px 22px;border-radius:18px;}
+  .onb-step h2{font-size:21px;}
+  .onb-emoji{font-size:38px;}
+  .onb-grid{grid-template-columns:1fr 1fr;}
+  .onb-opt{padding:14px 10px;font-size:12.5px;}
+  .onb-actions{flex-wrap:wrap;}
+  .onb-actions .onb-btn{flex:1;}
+}
+@media (prefers-reduced-motion: reduce){
+  .onb-step.active{animation-duration:.001ms !important;}
+}
+</style>
+</head>
+<body>
+
+<div class="onb-page">
+  <div class="onb-box" id="onbBox">
+
+    <a href="index.html" class="onb-brand">
+      <span class="mark"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+      VYQORLUNE
+    </a>
+    <p class="onb-subtitle">Personalize your workspace · ~60 seconds</p>
+
+    <div class="onb-progress-wrap">
+      <div class="onb-progress-track">
+        <div class="onb-progress-fill" id="onbProgress" style="width:14.28%"></div>
+      </div>
+      <div class="onb-step-counter" id="onbCounter">1 / 7</div>
+    </div>
+
+    <!-- STEP 1 — Name -->
+    <div class="onb-step active" data-step="1">
+      <div class="onb-emoji">👋</div>
+      <h2>What should we call you?</h2>
+      <p class="lead">Your name appears on your dashboard.</p>
+      <input id="onbName" class="onb-field" type="text" maxlength="60" placeholder="Type your name">
+      <div class="onb-actions">
+        <button class="onb-btn primary" data-next="2" type="button">Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 — Gender -->
+    <div class="onb-step" data-step="2">
+      <div class="onb-emoji">🙂</div>
+      <h2>How do you identify?</h2>
+      <p class="lead">Optional — you can skip.</p>
+      <div class="onb-grid" id="genderGrid">
+        <button class="onb-opt" data-gender="male" type="button"><span class="ico">👨</span> Male</button>
+        <button class="onb-opt" data-gender="female" type="button"><span class="ico">👩</span> Female</button>
+        <button class="onb-opt" data-gender="na" type="button"><span class="ico">🌈</span> Prefer not to say</button>
+      </div>
+      <div class="onb-actions">
+        <button class="onb-btn ghost" data-back="1" type="button">Back</button>
+        <button class="onb-btn primary" data-next="3" type="button">Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 — Role -->
+    <div class="onb-step" data-step="3">
+      <div class="onb-emoji">💼</div>
+      <h2>What do you do?</h2>
+      <p class="lead">We'll suggest the best workflows for you.</p>
+      <div class="onb-grid" id="roleGrid">
+        <button class="onb-opt" data-role="student" type="button">🎓 Student</button>
+        <button class="onb-opt" data-role="developer" type="button">💻 Developer</button>
+        <button class="onb-opt" data-role="designer" type="button">🎨 Designer</button>
+        <button class="onb-opt" data-role="manager" type="button">📊 Manager</button>
+        <button class="onb-opt" data-role="freelancer" type="button">🚀 Freelancer</button>
+        <button class="onb-opt" data-role="other" type="button">✨ Other</button>
+      </div>
+      <div class="onb-actions">
+        <button class="onb-btn ghost" data-back="2" type="button">Back</button>
+        <button class="onb-btn primary" data-next="4" type="button">Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP 4 — Purpose -->
+    <div class="onb-step" data-step="4">
+      <div class="onb-emoji">🎯</div>
+      <h2>What brings you here?</h2>
+      <p class="lead">Pick the one that fits best.</p>
+      <div class="onb-grid" id="purposeGrid">
+        <button class="onb-opt" data-purpose="personal" type="button">🌟 Personal</button>
+        <button class="onb-opt" data-purpose="study" type="button">📚 Study</button>
+        <button class="onb-opt" data-purpose="work" type="button">🏢 Work</button>
+      </div>
+      <div class="onb-actions">
+        <button class="onb-btn ghost" data-back="3" type="button">Back</button>
+        <button class="onb-btn primary" data-next="5" type="button">Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP 5 — Daily load -->
+    <div class="onb-step" data-step="5">
+      <div class="onb-emoji">📅</div>
+      <h2>How many tasks daily?</h2>
+      <p class="lead">We'll calibrate your default views.</p>
+      <div class="onb-grid" id="loadGrid">
+        <button class="onb-opt" data-load="light" type="button">🌱 1 – 3</button>
+        <button class="onb-opt" data-load="normal" type="button">🌿 4 – 7</button>
+        <button class="onb-opt" data-load="heavy" type="button">🌳 8 – 15</button>
+        <button class="onb-opt" data-load="intense" type="button">🔥 15+</button>
+      </div>
+      <div class="onb-actions">
+        <button class="onb-btn ghost" data-back="4" type="button">Back</button>
+        <button class="onb-btn primary" data-next="6" type="button">Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP 6 — Challenge -->
+    <div class="onb-step" data-step="6">
+      <div class="onb-emoji">🧠</div>
+      <h2>Biggest productivity challenge?</h2>
+      <p class="lead">We'll focus the app around solving it.</p>
+      <div class="onb-grid" id="challengeGrid">
+        <button class="onb-opt" data-challenge="too-many" type="button">📦 Too many tasks</button>
+        <button class="onb-opt" data-challenge="deadlines" type="button">⏰ Deadlines</button>
+        <button class="onb-opt" data-challenge="focus" type="button">🎯 Focus</button>
+      </div>
+      <div class="onb-actions">
+        <button class="onb-btn ghost" data-back="5" type="button">Back</button>
+        <button class="onb-btn primary" data-next="7" type="button">Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP 7 — Features -->
+    <div class="onb-step" data-step="7">
+      <div class="onb-emoji">⚡</div>
+      <h2>Which features excite you?</h2>
+      <p class="lead">Pick as many as you like.</p>
+      <div class="onb-grid" id="featuresGrid">
+        <button class="onb-opt" data-feature="calendar" type="button">📆 Calendar</button>
+        <button class="onb-opt" data-feature="kanban" type="button">🗂️ Kanban</button>
+        <button class="onb-opt" data-feature="search" type="button">🔍 Search</button>
+        <button class="onb-opt" data-feature="priorities" type="button">🔥 Priorities</button>
+        <button class="onb-opt" data-feature="progress" type="button">📊 Progress</button>
+        <button class="onb-opt" data-feature="themes" type="button">🎨 Themes</button>
+      </div>
+      <div class="onb-actions">
+        <button class="onb-btn ghost" data-back="6" type="button">Back</button>
+        <button class="onb-btn primary lg" id="finishBtn" type="button">Finish</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="onb-step onb-success" data-step="done">
+      <div class="onb-success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+      <h2>You're all set! 🎉</h2>
+      <p>Your personalized VYQORLUNE workspace is ready.</p>
+      <a href="app.html" class="onb-btn primary lg">Go to Dashboard</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  if (!TK.getUser()){ window.location.replace('signup.html'); return; }
+
+  const box = document.getElementById('onbBox');
+  const progress = document.getElementById('onbProgress');
+  const counter  = document.getElementById('onbCounter');
+  const nameInput = document.getElementById('onbName');
+  const TOTAL_STEPS = 7;
+
+  const data = {
+    name:'', gender:'na', role:'', purpose:'',
+    load:'', challenge:'', features:[]
+  };
+
+  const user = TK.getUser();
+  if (user && user.name) nameInput.value = user.name;
+
+  let currentStep = 1;
+
+  function showStep(n){
+    box.querySelectorAll('.onb-step').forEach(s => s.classList.remove('active'));
+    const target = box.querySelector(`.onb-step[data-step="${n}"]`);
+    if (!target) return;
+    target.classList.add('active');
+
+    if (typeof n === 'number'){
+      currentStep = n;
+      progress.style.width = ((n / TOTAL_STEPS) * 100) + '%';
+      counter.textContent = n + ' / ' + TOTAL_STEPS;
+    } else {
+      progress.style.width = '100%';
+      counter.textContent = 'Complete';
+    }
+  }
+
+  function requireName(){
+    const name = nameInput.value.trim();
+    if (!name){
+      nameInput.classList.remove('error');
+      void nameInput.offsetWidth;
+      nameInput.classList.add('error');
+      nameInput.focus();
+      setTimeout(() => nameInput.classList.remove('error'), 1300);
+      return false;
+    }
+    data.name = name;
+    return true;
+  }
+
+  box.querySelectorAll('[data-next]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const n = +btn.dataset.next;
+      if (currentStep === 1 && n === 2){
+        if (!requireName()) return;
+      }
+      showStep(n);
+    });
+  });
+
+  box.querySelectorAll('[data-back]').forEach(btn => {
+    btn.addEventListener('click', () => showStep(+btn.dataset.back));
+  });
+
+  nameInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter'){
+      e.preventDefault();
+      if (!requireName()) return;
+      showStep(2);
+    }
+  });
+
+  function wireSingle(gridId, key, attr){
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    grid.addEventListener('click', e => {
+      const b = e.target.closest(`[${attr}]`); if (!b) return;
+      grid.querySelectorAll('.onb-opt').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      data[key] = b.getAttribute(attr);
+    });
+  }
+  wireSingle('genderGrid','gender','data-gender');
+  wireSingle('roleGrid','role','data-role');
+  wireSingle('purposeGrid','purpose','data-purpose');
+  wireSingle('loadGrid','load','data-load');
+  wireSingle('challengeGrid','challenge','data-challenge');
+
+  document.getElementById('featuresGrid').addEventListener('click', e => {
+    const b = e.target.closest('[data-feature]'); if (!b) return;
+    b.classList.toggle('active');
+    const f = b.dataset.feature;
+    if (b.classList.contains('active')){
+      if (!data.features.includes(f)) data.features.push(f);
+    } else {
+      data.features = data.features.filter(x => x !== f);
+    }
+  });
+
+  document.getElementById('finishBtn').addEventListener('click', () => {
+    const u = TK.getUser();
+    u.name = data.name || u.name;
+    u.gender = data.gender;
+    u.role = data.role;
+    u.purpose = data.purpose;
+    u.load = data.load;
+    u.challenge = data.challenge;
+    u.features = data.features;
+    u.onboarded = true;
+    u.onboardedAt = new Date().toISOString();
+    TK.setUser(u);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'onb-confetti';
+    document.body.appendChild(wrap);
+    const colors = ['#2563eb','#7c3aed','#16a34a','#d97706','#dc2626','#db2777','#0891b2'];
+    for (let i = 0; i < 80; i++){
+      const p = document.createElement('i');
+      p.style.left = Math.random()*100 + 'vw';
+      p.style.background = colors[i % colors.length];
+      p.style.animationDuration = (1.5 + Math.random()*1.5) + 's';
+      p.style.animationDelay = (Math.random()*0.5) + 's';
+      p.style.width = (6 + Math.random()*8) + 'px';
+      p.style.height = (6 + Math.random()*8) + 'px';
+      wrap.appendChild(p);
+    }
+    setTimeout(() => wrap.remove(), 4000);
+
+    showStep('done');
+  });
+})();
+</script>
+</body>
+</html>
