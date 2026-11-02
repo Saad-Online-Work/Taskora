@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VYQORLUNE — Plan. Organize. Get Things Done.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="logo" href="web head Logo.png">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+  <div class="container nav">
+    <a href="index.html" class="brand brand-logo-link" aria-label="VYQORLUNE home"><img class="brand-logo" src="logo.png" alt="VYQORLUNE — Plan · Focus · Achieve"></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <div class="mobile-actions">
+        <a href="signin.html" class="login">Sign In</a>
+        <a href="signup.html" class="btn btn-primary">Get Started</a>
+      </div>
+    </nav>
+    <div class="nav-actions">
+      <a href="signin.html" class="login">Sign In</a>
+      <a href="signup.html" class="btn btn-primary">Get Started</a>
+    </div>
+    <button class="mobile-toggle" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="pill"><span class="dot"></span> Better Tasks • More Progress</span>
+      <h1>Plan. Organize.<br><span class="text-blue">Get Things Done.</span></h1>
+      <p>VYQORLUNE helps you stay focused, collaborate, and turn ideas into real progress.</p>
+      <div class="hero-actions">
+        <a href="signup.html" class="btn btn-primary btn-lg">Get Started Free</a>
+        <a href="#features" class="btn btn-ghost btn-lg">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m10 8.5 5 3.5-5 3.5z" fill="currentColor" stroke="none"/></svg>
+          Explore Features
+        </a>
+      </div>
+      <ul class="hero-points">
+        <li><span class="tick-sm"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>No installation</li>
+        <li><span class="tick-sm"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Works offline</li>
+        <li><span class="tick-sm"><svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Data stays local</li>
+      </ul>
+    </div>
+    <div class="hero-visual">
+      <div class="device-laptop">
+        <div class="laptop-screen">
+          <div class="laptop-display">
+            <img src="screen.jpg" alt="Dashboard" class="app-screenshot" onerror="this.style.display='none'">
+            <div class="screenshot-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8" cy="9" r="1.5"/></svg>
+              <div class="ph-title">Dashboard Screenshot</div>
+              <div class="ph-sub">Preview coming soon</div>
+            </div>
+          </div>
+        </div>
+        <div class="laptop-base"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Features</span>
+      <h2>Powerful Features</h2>
+      <p>Everything you need to plan, track, and manage your work.</p>
+    </div>
+    <div class="features-grid">
+      <article class="feature-card">
+        <div class="f-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9z"/><path d="m9 13 2 2 4-4"/></svg></div>
+        <h3>Task Management</h3>
+        <p>Create, edit, and organize tasks with priorities and deadlines.</p>
+      </article>
+      <article class="feature-card">
+        <div class="f-icon violet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+        <h3>Projects</h3>
+        <p>Group tasks into projects and track progress easily.</p>
+      </article>
+      <article class="feature-card">
+        <div class="f-icon sky"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></div>
+        <h3>Calendar View</h3>
+        <p>See all deadlines in a clean calendar layout.</p>
+      </article>
+      <article class="feature-card">
+        <div class="f-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
+        <h3>Search &amp; Filters</h3>
+        <p>Find tasks by priority, status, or due date.</p>
+      </article>
+      <article class="feature-card">
+        <div class="f-icon indigo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="6" height="16" rx="1.5"/><rect x="10" y="4" width="6" height="10" rx="1.5"/><rect x="17" y="4" width="4" height="13" rx="1.5"/></svg></div>
+        <h3>Kanban Board</h3>
+        <p>Drag and drop tasks between status columns.</p>
+      </article>
+      <article class="feature-card">
+        <div class="f-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="14" height="10" rx="2"/><path d="M6 18h6"/><rect x="16" y="9" width="6" height="11" rx="1.5"/></svg></div>
+        <h3>Responsive</h3>
+        <p>Works on mobile, tablet, and desktop.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="container split">
+    <div>
+      <span class="eyebrow">Built for Everyone</span>
+      <h2>From Students to Professionals</h2>
+      <p class="quote">"VYQORLUNE changed the way I manage my projects. Clean, flexible, and it just works."</p>
+      <p class="quote-author">Sarah Johnson — Product Manager</p>
+      <ul class="check-list">
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Multiple projects</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Task priorities</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Kanban drag &amp; drop</li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Real-time progress</li>
+      </ul>
+      <a href="signup.html" class="btn btn-primary">Get Started</a>
+    </div>
+    <div>
+      <div class="device-laptop" style="max-width:520px;margin:0 auto">
+        <div class="laptop-screen">
+          <div class="laptop-display">
+            <img src="calender.jpg" alt="Calendar" class="app-screenshot" onerror="this.style.display='none'">
+            <div class="screenshot-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8" cy="9" r="1.5"/></svg>
+              <div class="ph-title">Calendar Screenshot</div>
+              <div class="ph-sub">Preview coming soon</div>
+            </div>
+          </div>
+        </div>
+        <div class="laptop-base"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Pricing</span>
+      <h2>Simple, Transparent Pricing</h2>
+      <p>Choose the plan that fits your needs.</p>
+    </div>
+    <div class="pricing-grid">
+      <article class="price-card">
+        <h3><span class="plan-check"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M20 6 9 17l-5-5"/></svg></span> Free</h3>
+        <div class="price"><strong>$0</strong><span>/ forever</span></div>
+        <ul class="check-list" style="gap:10px;margin:0 0 22px">
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Up to 5 projects</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Basic features</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Local storage</li>
+        </ul>
+        <a href="payment.html?plan=free" class="btn btn-ghost btn-block">Get Started</a>
+      </article>
+      <article class="price-card popular">
+        <span class="popular-badge">Most Popular</span>
+        <h3><span class="plan-check"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M20 6 9 17l-5-5"/></svg></span> Pro</h3><span class="badge-soft">For growing teams</span>
+        <div class="price"><strong>$9</strong><span>/ month</span></div>
+        <ul class="check-list" style="gap:10px;margin:0 0 22px">
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Unlimited projects</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Advanced features</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Priority support</li>
+        </ul>
+        <a href="payment.html?plan=pro" class="btn btn-primary btn-block">Get Started</a>
+      </article>
+      <article class="price-card">
+        <h3><span class="plan-check"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.4"><path d="M20 6 9 17l-5-5"/></svg></span> Premium</h3><span class="badge-soft">For larger teams</span>
+        <div class="price"><strong>$19</strong><span>/ month</span></div>
+        <ul class="check-list" style="gap:10px;margin:0 0 22px">
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>5,000 tokens every month</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Everything in Pro</li>
+          <li><span class="tick"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.2"><path d="M20 6 9 17l-5-5"/></svg></span>Test-mode checkout included</li>
+        </ul>
+        <a href="payment.html?plan=team" class="btn btn-ghost btn-block">Get Started</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-grid" id="faqGrid">
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">Is VYQORLUNE free?<span class="plus"></span></button><div class="faq-a"><p>Yes, there's a free plan with core features.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">Multiple projects?<span class="plus"></span></button><div class="faq-a"><p>Yes, create as many as your plan allows.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">Set deadlines?<span class="plus"></span></button><div class="faq-a"><p>Add due dates to any task.</p></div></div>
+      <div class="faq-item"><button class="faq-q" type="button" aria-expanded="false">Where is data saved?<span class="plus"></span></button><div class="faq-a"><p>Locally in your browser.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <span class="eyebrow">Your Next Step Starts Here</span>
+      <h2>Your Next Big Project Starts Here</h2>
+      <p>Join VYQORLUNE today and take control of your work.</p>
+      <a href="signup.html" class="btn btn-primary btn-lg">Get Started Free</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" id="contact">
+  <div class="container">
+    <div class="footer-top">
+      <a href="index.html" class="brand brand-logo-link" aria-label="VYQORLUNE home"><img class="brand-logo" src="logo.png" alt="VYQORLUNE — Plan · Focus · Achieve"></a>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 VYQORLUNE. All rights reserved.</span>
+      <span>Made with <span class="heart">♥</span> for a better tomorrow</span>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive:true });
+
+  const mt = document.getElementById('mobileToggle');
+  const nav = document.getElementById('navLinks');
+  if (mt && nav){
+    mt.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      mt.setAttribute('aria-expanded', String(open));
+    });
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      nav.classList.remove('open'); mt.setAttribute('aria-expanded','false');
+    }));
+  }
+
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const panel = item.querySelector('.faq-a');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+      panel.style.maxHeight = isOpen ? panel.scrollHeight + 'px' : '0px';
+    });
+  });
+  window.addEventListener('resize', () => {
+    document.querySelectorAll('.faq-item.open .faq-a').forEach(p => {
+      p.style.maxHeight = p.scrollHeight + 'px';
+    });
+  });
+})();
+</script>
+</body>
+</html>
